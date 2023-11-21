@@ -8,6 +8,7 @@ speechrecognition = "*"
 textblob = "*"
 pydub = "*"
 pylint = "*"
+tomli = "*"
 
 [dev-packages]
 
