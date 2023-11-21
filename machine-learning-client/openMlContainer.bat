@@ -1,1 +1,0 @@
-docker run -it -v "C:\Users\alway\Desktop\Fall 2023\CSCI-UA 474\Projects\Containerized App\4-containerized-app-exercise-m5-competition\machine-learning-client:/usr/src/app/machine-learning-client" ml_client bash
