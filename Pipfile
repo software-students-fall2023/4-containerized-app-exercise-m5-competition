@@ -9,6 +9,7 @@ textblob = "*"
 pydub = "*"
 pylint = "*"
 tomli = "*"
+typing-extensions = "*"
 
 [dev-packages]
 
