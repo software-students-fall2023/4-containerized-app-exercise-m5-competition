@@ -18,10 +18,10 @@ def upload_audio():
     """upload audio"""
     audio_file = request.files["audio"]
     response = requests.post(
-        "http://mlclient:7001/upload", files={"audio": audio_file}, timeout=5
+        "http://mlclient:5000/upload", files={"audio": audio_file}, timeout=5
     )
     return response.content, response.status_code
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "6001")))
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")))

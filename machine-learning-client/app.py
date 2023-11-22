@@ -1,5 +1,6 @@
 """ml client backend"""
 
+import os
 from flask import Flask, request, jsonify
 import pymongo
 from ml_client import transcribe_audio, analyze_sentiment
@@ -35,4 +36,4 @@ def upload_audio():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")))

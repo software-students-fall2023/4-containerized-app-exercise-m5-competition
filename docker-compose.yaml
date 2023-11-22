@@ -1,20 +1,25 @@
 version: '3'
 services:
   db:
-    image: mongo:5.0
+    image: mongo
+    container_name: my_mongo_db
     ports: 
       - "27017:27017"
     
   webapp:
     build: ./web-app
+    image: web_app
+    container_name: my_web_app
     ports:
-      - "6001:5000"  # Exposing port 5000 inside the container as 6001 on the host
+      - "6001:5000"
     depends_on:
       - db
 
   mlclient:
     build: ./machine-learning-client
+    image: ml_client
+    container_name: my_ml_client
     ports:
-      - "7001:5000"  # Exposing port 5000 inside the container as 7001 on the host
+      - "7001:5000"
     depends_on:
       - db
