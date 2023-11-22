@@ -5,22 +5,16 @@ services:
     ports: 
       - "27017:27017"
     
-   
   webapp:
     build: ./web-app
     ports:
-      - "6001:6001"
+      - "6001:5000"  # Exposing port 5000 inside the container as 6001 on the host
     depends_on:
       - db
 
   mlclient:
     build: ./machine-learning-client
     ports:
-      - "7001:7001"
-    environment:
-      - PYTHONUNBUFFERED=1
-
-    dns:
-      - "8.8.8.8"
+      - "7001:5000"  # Exposing port 5000 inside the container as 7001 on the host
     depends_on:
       - db
