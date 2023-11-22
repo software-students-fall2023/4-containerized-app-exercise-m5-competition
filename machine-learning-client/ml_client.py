@@ -1,8 +1,10 @@
 import speech_recognition as sr
 from textblob import TextBlob
-import os
+
+"""Does something interesting."""
 
 def transcribe_audio(file_path):
+    """Does something interesting."""
     r = sr.Recognizer()
     with sr.AudioFile(file_path) as source:
         audio_data = r.record(source)
@@ -10,6 +12,7 @@ def transcribe_audio(file_path):
         return text
 
 def analyze_sentiment(text):
+    """Does something interesting."""
     analysis = TextBlob(text)
     return analysis.sentiment
 
