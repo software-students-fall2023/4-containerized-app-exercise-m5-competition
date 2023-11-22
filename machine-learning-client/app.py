@@ -1,4 +1,4 @@
-"""Does something interesting."""
+"""ml client backend"""
 
 from flask import Flask, request, jsonify
 import pymongo
@@ -6,7 +6,7 @@ from ml_client import transcribe_audio, analyze_sentiment
 
 app = Flask(__name__)
 
-client = pymongo.MongoClient("mongodb://admin:secret@localhost:27017")
+client = pymongo.MongoClient("mongodb://admin:secret@db:27017")
 db = client["Isomorphism"]
 collection = db["history"]
 app.config["SECRET_KEY"] = "supersecretkey"
@@ -14,7 +14,7 @@ app.config["SECRET_KEY"] = "supersecretkey"
 
 @app.route("/upload", methods=["POST"])
 def upload_audio():
-    """Does something interesting."""
+    """take the uploaded audio and store the result in mongodb"""
     if "audio" not in request.files:
         return "No audio file", 400
 
