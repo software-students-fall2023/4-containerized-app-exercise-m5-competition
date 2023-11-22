@@ -12,6 +12,8 @@ tomli = "*"
 typing-extensions = "*"
 pymongo = "*"
 flask = "*"
+dill = "*"
+black = "*"
 
 [dev-packages]
 pylint = "*"
