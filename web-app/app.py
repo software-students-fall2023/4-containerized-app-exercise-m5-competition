@@ -1,8 +1,9 @@
+"""place-holder"""
+
 import os
 import pymongo
 from flask import Flask
 
-"""place-holder"""
 
 app = Flask(__name__)
 

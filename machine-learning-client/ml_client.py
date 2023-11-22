@@ -1,7 +1,7 @@
+"""Does something interesting."""
+
 import speech_recognition as sr
 from textblob import TextBlob
-
-"""Does something interesting."""
 
 def transcribe_audio(file_path):
     """Does something interesting."""
