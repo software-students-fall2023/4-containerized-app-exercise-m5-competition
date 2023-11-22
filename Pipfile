@@ -7,10 +7,17 @@ name = "pypi"
 speechrecognition = "*"
 textblob = "*"
 pydub = "*"
-flask = "*"
+pylint = "*"
+tomli = "*"
+typing-extensions = "*"
 pymongo = "*"
+flask = "*"
+dill = "*"
+black = "*"
 
 [dev-packages]
+pylint = "*"
+black = "*"
 
 [requires]
 python_version = "3.12"

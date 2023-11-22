@@ -1,6 +1,9 @@
-import pymongo
-from flask import Flask, request, render_template, redirect
+"""place-holder"""
+
 import os
+import pymongo
+from flask import Flask
+
 
 app = Flask(__name__)
 
@@ -10,7 +13,5 @@ db = connection["test_database"]
 
 
 if __name__ == "__main__":
-    PORT = os.getenv(
-        "PORT", 5000
-    )  # use the PORT environment variable, or default to 5000
+    PORT = int(os.getenv("PORT", "5000"))  # 5000 or default port
     app.run(port=PORT)
