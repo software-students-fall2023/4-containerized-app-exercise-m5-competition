@@ -10,6 +10,8 @@ pydub = "*"
 pylint = "*"
 tomli = "*"
 typing-extensions = "*"
+pymongo = "*"
+flask = "*"
 
 [dev-packages]
 
