@@ -3,6 +3,7 @@
 import speech_recognition as sr
 from textblob import TextBlob
 
+
 def transcribe_audio(file_path):
     """Does something interesting."""
     r = sr.Recognizer()
@@ -11,10 +12,12 @@ def transcribe_audio(file_path):
         text = r.recognize_google(audio_data)
         return text
 
+
 def analyze_sentiment(text):
     """Does something interesting."""
     analysis = TextBlob(text)
     return analysis.sentiment
+
 
 # test if it is working
 audio_text = transcribe_audio("./machine-learning-client/kids_are_talking.wav")
