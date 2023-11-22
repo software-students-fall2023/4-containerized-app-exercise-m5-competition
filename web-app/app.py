@@ -9,7 +9,7 @@ from flask import Flask, request
 app = Flask(__name__)
 
 # Connecting to local host and same db as ml's backend
-client = pymongo.MongoClient("mongodb://admin:secret@db:27017")
+client = pymongo.MongoClient("mongodb://db:27017")
 db = client["Isomorphism"]
 
 
@@ -17,7 +17,9 @@ db = client["Isomorphism"]
 def upload_audio():
     """upload audio"""
     audio_file = request.files["audio"]
-    response = requests.post("http://mlclient:7001/upload", files={"audio": audio_file})
+    response = requests.post(
+        "http://mlclient:7001/upload", files={"audio": audio_file}, timeout=5
+    )
     return response.content, response.status_code
 
 

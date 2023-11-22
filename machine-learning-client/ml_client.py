@@ -17,4 +17,3 @@ def analyze_sentiment(text):
     """sentiment analysis"""
     analysis = TextBlob(text)
     return analysis.sentiment
-

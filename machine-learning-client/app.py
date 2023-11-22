@@ -6,7 +6,7 @@ from ml_client import transcribe_audio, analyze_sentiment
 
 app = Flask(__name__)
 
-client = pymongo.MongoClient("mongodb://admin:secret@db:27017")
+client = pymongo.MongoClient("mongodb://db:27017")
 db = client["Isomorphism"]
 collection = db["history"]
 app.config["SECRET_KEY"] = "supersecretkey"
