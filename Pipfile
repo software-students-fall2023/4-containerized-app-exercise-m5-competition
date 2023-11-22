@@ -7,6 +7,8 @@ name = "pypi"
 speechrecognition = "*"
 textblob = "*"
 pydub = "*"
+flask = "*"
+pymongo = "*"
 
 [dev-packages]
 
