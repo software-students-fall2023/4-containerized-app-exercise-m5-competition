@@ -13,6 +13,5 @@ db = connection["test_database"]
 
 
 if __name__ == "__main__":
-    """place-holder"""
     PORT = int(os.getenv("PORT", "5000")) # 5000 or default port
     app.run(port=PORT)
