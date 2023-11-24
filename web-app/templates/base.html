@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Class Project</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='styles/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <main>{% block container %} {% endblock %}</main>
+    </div>
+  </body>
+</html>

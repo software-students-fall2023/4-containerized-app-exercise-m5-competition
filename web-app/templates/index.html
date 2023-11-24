@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block container %}
+<div>
+  <h1>Audio Transcription</h1>
+  <p>Upload your audio</p>
+</div>
+<form method="POST" action="/api/upload_audio">
+  <input type="file" name="audio_file"/>
+  <input type="submit" value="Submit" />
+</form>
+{% endblock %}
