@@ -3,7 +3,7 @@
 import os
 import requests
 import pymongo
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template
 
 
 app = Flask(__name__)
@@ -15,7 +15,8 @@ db = client["Isomorphism"]
 
 # Views
 @app.route("/")
-def display_songs():
+def homescreen_view():
+    """upload audio"""
     return render_template("index.html")
 
 
@@ -31,4 +32,4 @@ def upload_audio():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")))
