@@ -3,7 +3,7 @@
 import os
 import requests
 import pymongo
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 
 app = Flask(__name__)
@@ -13,7 +13,15 @@ client = pymongo.MongoClient("mongodb://db:27017")
 db = client["Isomorphism"]
 
 
-@app.route("/upload_audio", methods=["POST"])
+# Views
+@app.route("/")
+def homescreen_view():
+    """upload audio"""
+    return render_template("index.html")
+
+
+# Form handlers
+@app.route("/api/upload_audio", methods=["POST"])
 def upload_audio():
     """upload audio"""
     audio_file = request.files["audio"]
