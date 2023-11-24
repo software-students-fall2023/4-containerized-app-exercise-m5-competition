@@ -3,7 +3,7 @@
 import os
 import requests
 import pymongo
-from flask import Flask, request
+from flask import Flask, request, render_template, redirect
 
 
 app = Flask(__name__)
@@ -15,19 +15,12 @@ db = client["Isomorphism"]
 
 # Views
 @app.route("/")
-@app.route("/<user_name>")
-def display_songs(user_name=None):
-    song_list = None
-    if user_name:
-        song_list = db.songs.find({"user_name": user_name})
-    else:
-        song_list = db.songs.find({})
-
-    return render_template("home.html", song_list=song_list)
+def display_songs():
+    return render_template("index.html")
 
 
 # Form handlers
-@app.route("/upload_audio", methods=["POST"])
+@app.route("/api/upload_audio", methods=["POST"])
 def upload_audio():
     """upload audio"""
     audio_file = request.files["audio"]
