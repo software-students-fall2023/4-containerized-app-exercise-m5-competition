@@ -29,5 +29,6 @@ def upload_audio():
     )
     return response.content, response.status_code
 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port= os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=os.getenv("PORT", 5000))
