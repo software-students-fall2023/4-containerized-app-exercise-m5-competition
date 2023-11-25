@@ -1,10 +1,13 @@
-{% extends 'base.html' %} {% block container %}
-<div>
-  <h1>Audio Transcription</h1>
-  <p>Upload your audio</p>
+{% extends 'base.html' %}
+
+{% block container %}
+<div class="upload-container">
+  <h1>Audio Transcription Service</h1>
+  <p>Upload your audio file for transcription</p>
+  <div id="response-message"></div>
+  <form method="POST" action="/api/upload_audio" enctype="multipart/form-data">
+    <input type="file" name="audio" id="audio-file" accept="audio/*"/>
+    <button type="submit" class="submit-btn">Upload</button>
+  </form>
 </div>
-<form method="POST" action="/api/upload_audio" enctype="multipart/form-data">
-  <input type="file" name="audio"/>
-  <input type="submit" value="Submit" />
-</form>
 {% endblock %}
