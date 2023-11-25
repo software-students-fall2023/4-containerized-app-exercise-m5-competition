@@ -4,13 +4,11 @@ WORKDIR /usr/src/app
 
 COPY requirements.txt ./
 
+#Install easyocr
 RUN pip install --no-cache-dir -r requirements.txt
-
 RUN apt-get update -y && \
     apt-get install -y libgl1-mesa-glx
-
 RUN pip install torch
-
 RUN pip install easyocr
 
 # Install FLAC
