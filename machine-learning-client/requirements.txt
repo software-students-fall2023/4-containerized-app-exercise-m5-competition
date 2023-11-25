@@ -33,6 +33,7 @@ tqdm==4.66.1; python_version >= '3.7'
 typing-extensions==4.8.0; python_version >= '3.8'
 urllib3==2.1.0; python_version >= '3.8'
 werkzeug==3.0.1; python_version >= '3.8'
+easyocr
 torch
 torchvision>=0.5
 opencv-python-headless
