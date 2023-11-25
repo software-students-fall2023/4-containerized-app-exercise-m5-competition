@@ -1,0 +1,83 @@
+/* Existing styles... */
+
+/* Upload container styling */
+.upload-container {
+    text-align: center;
+    padding: 40px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 30px;
+}
+
+/* Button styling */
+button.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button.submit-btn:hover {
+    background-color: #45a049;
+}
+
+/* File input styling */
+input[type='file'] {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+/* Response message styling */
+#response-message {
+    color: #28a745;
+    margin: 20px 0;
+}
+
+/* Additional styles for result.html */
+
+/* Response container styling */
+.response-container {
+    text-align: center;
+    padding: 40px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 30px;
+}
+
+/* Status code styling */
+.status-code {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Response content styling */
+.response-content {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+}
+
+/* Back button styling */
+.back-btn {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none; /* Remove underline from links */
+}
+
+.back-btn:hover {
+    background-color: #45a049;
+}
