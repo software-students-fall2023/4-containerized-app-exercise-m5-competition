@@ -19,6 +19,7 @@ def analyze_sentiment(text):
     return analysis.sentiment
 
 def read_picture(photo_path):
+    """read picture"""
     reader = easyocr.Reader(['en'])
     results = reader.readtext(photo_path, detail = 0)
     return results
