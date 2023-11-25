@@ -1,9 +1,9 @@
 """place-holder"""
 
 import os
+import json
 import requests
 import pymongo
-import json
 from flask import Flask, request, render_template
 
 
@@ -30,7 +30,7 @@ def upload_audio():
         "http://mlclient:5000/upload", files={"audio": audio_file}, timeout=5
     )
     # Decoding the byte string to a regular string
-    response_text = response.content.decode('utf-8')
+    response_text = response.content.decode("utf-8")
 
     # Parsing the JSON (optional, if you want to extract specific data)
     try:
@@ -38,8 +38,10 @@ def upload_audio():
     except json.JSONDecodeError:
         # Handle error if response is not valid JSON
         response_data = {"error": "Invalid JSON response"}
-        
-    return render_template('result.html', response_content=response_data, status_code=response.status_code)
+
+    return render_template(
+        "result.html", response_content=response_data, status_code=response.status_code
+    )
 
 
 if __name__ == "__main__":
