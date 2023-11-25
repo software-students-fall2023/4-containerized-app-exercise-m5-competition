@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<div class="upload-container">
+    <h1>Sign In</h1>
+    <form method="POST" action="/user/login" >
+        <input type="text" name="username" placeholder="username" />
+        <input type="password" name="password"/>
+        <button type="submit" class="submit-btn">Log In</button>
+    </form>
+</div>
+{% endblock %}

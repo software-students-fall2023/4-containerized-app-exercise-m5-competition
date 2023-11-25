@@ -35,7 +35,15 @@ def transcripts_view():
     """View transcripts generated before by the user"""
     return render_template("transcripts.html")
 
+@app.route("/login")
+def login_view():
+    """Display log in page"""
+    return render_template("signIn.html")
 
+@app.route("/signup")
+def signup_view():
+    """Display sign up page"""
+    return render_template("signUp.html")
 
 # Form handlers
 @app.route("/api/upload_audio", methods=["POST"])
