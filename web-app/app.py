@@ -36,7 +36,7 @@ def upload_photo():
     photo_file = request.files["photo"]
 
     response = requests.post(
-        "http://mlclient:5000/upload_photo", files={"photo": photo_file}, timeout=5
+        "http://mlclient:5000/upload_photo", files={"photo": photo_file}, timeout=20
     )
     return response.content, response.status_code
 

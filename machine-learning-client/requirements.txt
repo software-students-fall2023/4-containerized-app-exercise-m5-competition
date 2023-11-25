@@ -33,3 +33,15 @@ tqdm==4.66.1; python_version >= '3.7'
 typing-extensions==4.8.0; python_version >= '3.8'
 urllib3==2.1.0; python_version >= '3.8'
 werkzeug==3.0.1; python_version >= '3.8'
+torch
+torchvision>=0.5
+opencv-python-headless
+scipy
+numpy
+Pillow
+scikit-image
+python-bidi
+PyYAML
+Shapely
+pyclipper
+ninja
