@@ -30,6 +30,15 @@ def upload_audio():
     )
     return response.content, response.status_code
 
+@app.route("/api/upload_photo", methods=["POST"])
+def upload_photo():
+    """upload photo"""
+    photo_file = request.files["photo"]
+
+    response = requests.post(
+        "http://mlclient:5000/upload_photo", files={"photo": photo_file}, timeout=5
+    )
+    return response.content, response.status_code
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")))
