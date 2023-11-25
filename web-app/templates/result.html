@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<div class="response-container">
+    <h1>Upload Response</h1>
+    <p class="status-code">Status Code: {{ status_code }}</p>
+    <p>Response:</p>
+    <div class="response-content">
+        {{ response_content | safe }}
+    </div>
+</div>
+{% endblock %}
