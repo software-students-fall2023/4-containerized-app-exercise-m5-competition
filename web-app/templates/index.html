@@ -9,5 +9,12 @@
     <input type="file" name="audio" id="audio-file" accept="audio/*"/>
     <button type="submit" class="submit-btn">Upload</button>
   </form>
+  {% with messages = get_flashed_messages(category_filter=["error"]) %}
+      {% if messages %}
+          {% for message in messages %}
+              <p class="error">{{ message }}</p>
+          {% endfor %}
+      {% endif %}
+  {% endwith %}
 </div>
 {% endblock %}

@@ -10,6 +10,9 @@ services:
     build: ./web-app
     image: web_app
     container_name: my_web_app
+    volumes:
+      - ./web-app:/usr/src/app
+      - ./machine-learning-client/audio_files:/audio_files
     ports:
       - "6001:5000"
     depends_on:
@@ -19,6 +22,9 @@ services:
     build: ./machine-learning-client
     image: ml_client
     container_name: my_ml_client
+    volumes:
+      - ./machine-learning-client:/usr/src/app
+      - ./machine-learning-client/audio_files:/audio_files
     ports:
       - "7001:5000"
     depends_on:

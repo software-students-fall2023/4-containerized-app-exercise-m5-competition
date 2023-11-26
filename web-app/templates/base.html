@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Class Project</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static',filename='styles.css') }}"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <nav>
-        <a href="/">Home</a>
+<head>
+  <title>Class Project</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/">Home</a>
+      {% if session.logged_in %}
+        <span>Welcome, {{ session.user.username }}!</span>
+        <a href="/transcripts">My Transcripts</a>
+        <form method="POST" action="/user/signout" style="display: inline;">
+          <button type="submit">Sign Out</button>
+        </form>
+      {% else %}
         <a href="/login">Log In</a>
         <a href="/signup">Sign Up</a>
-      </nav>
-      <main>{% block container %} {% endblock %}</main>
-    </div>
-  </body>
+      {% endif %}
+    </nav>
+    <main>{% block container %}{% endblock %}</main>
+  </div>
+</body>
 </html>
