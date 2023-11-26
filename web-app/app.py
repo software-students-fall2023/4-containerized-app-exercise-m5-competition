@@ -9,7 +9,7 @@ from passlib.hash import pbkdf2_sha256
 
 app = Flask(__name__)
 # Connecting to local host and same db as ml's backend
-client = pymongo.MongoClient("mongodb://db:27017")
+client = pymongo.MongoClient("mongodb://localhost:27017")
 db = client["Isomorphism"]
 
 # Set secret key for sessions
