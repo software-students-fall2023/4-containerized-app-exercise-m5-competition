@@ -1,12 +1,11 @@
 """web-page backend"""
 
-
 from functools import wraps
 import os
 import uuid
 import requests
 import pymongo
-from flask import *
+from flask import Flask, request, redirect, url_for, render_template, session, flash
 from passlib.hash import pbkdf2_sha256
 
 app = Flask(__name__)
@@ -77,23 +76,20 @@ def transcription_result():
 
 @app.route("/api/upload_audio", methods=["POST"])
 def upload_audio():
+    """call the ml client to do ML work"""
     audio_file = request.files["audio"]
     user_id = session["user"]["_id"] if "logged_in" in session else None
     data = {"user_id": user_id} if user_id else {}
 
     response = requests.post(
-        "http://mlclient:5000/upload",
-        files={"audio": audio_file},
-        data=data,
-        timeout=5
+        "http://mlclient:5000/upload", files={"audio": audio_file}, data=data, timeout=5
     )
 
     if response.status_code == 200:
         result = response.json()
         return render_template("transcription_result.html", result=result)
-    else:
-        flash("Failed to process audio. Please try again.", "error")
-        return redirect(url_for("homescreen_view"))
+    flash("Failed to process audio. Please try again.", "error")
+    return redirect(url_for("homescreen_view"))
 
 
 @app.route("/user/signup", methods=["POST"])

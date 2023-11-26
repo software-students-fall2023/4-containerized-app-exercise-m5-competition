@@ -1,7 +1,7 @@
 """ml client backend"""
 
 import os
-from flask import *
+from flask import Flask, request, jsonify, send_from_directory
 import pymongo
 from ml_client import transcribe_audio, analyze_sentiment
 
@@ -13,13 +13,15 @@ collection = db["history"]
 app.config["SECRET_KEY"] = "supersecretkey"
 
 
-@app.route('/audio/<filename>')
+@app.route("/audio/<filename>")
 def uploaded_file(filename):
-    return send_from_directory('/audio_files', filename)
+    """serve the shared folder"""
+    return send_from_directory("/audio_files", filename)
 
 
 @app.route("/upload", methods=["POST"])
 def upload_audio():
+    """get the uploaded audio and do ML work"""
     if "audio" not in request.files:
         return jsonify({"error": "No audio file"}), 400
 
@@ -33,7 +35,7 @@ def upload_audio():
 
         # Save the audio file only if user is logged in
         # Extract file extension and ensure it's included in the filename
-        file_extension = os.path.splitext(audio_file.filename)[1] or '.wav'
+        file_extension = os.path.splitext(audio_file.filename)[1] or ".wav"
         filename = f"{user_id}_{audio_file.filename}{file_extension}"
         audio_path = os.path.join(upload_dir, filename)
         audio_file.save(audio_path)
@@ -46,24 +48,26 @@ def upload_audio():
             "user_id": user_id,
             "transcript": transcript,
             "sentiment": sentiment.polarity,
-            "filename": filename
+            "filename": filename,
         }
         collection.insert_one(document)
 
         # Return transcript, sentiment, and audio path
-        return jsonify({
-            "transcript": transcript, 
-            "sentiment": sentiment, 
-            "filename": filename  # filename with extension
-        }), 200
+        return (
+            jsonify(
+                {
+                    "transcript": transcript,
+                    "sentiment": sentiment,
+                    "filename": filename,  # filename with extension
+                }
+            ),
+            200,
+        )
 
     # If user is not logged in, process the file but do not save it
     transcript = transcribe_audio(audio_file)
     sentiment = analyze_sentiment(transcript)
-    return jsonify({
-        "transcript": transcript, 
-        "sentiment": sentiment
-    }), 200
+    return jsonify({"transcript": transcript, "sentiment": sentiment}), 200
 
 
 if __name__ == "__main__":
