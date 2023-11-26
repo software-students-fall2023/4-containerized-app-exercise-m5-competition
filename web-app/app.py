@@ -11,23 +11,27 @@ app = Flask(__name__)
 client = pymongo.MongoClient("mongodb://db:27017")
 db = client["Isomorphism"]
 
+
 # Utilities
 def login_required(f):
     """login required decorators"""
+
     @wraps(f)
     def wrap(*args, **kwargs):
-        if 'logged_in' in session:
+        if "logged_in" in session:
             return f(*args, **kwargs)
-        return redirect('/')
+        return redirect("/")
 
     return wrap
 
+
 def start_session(user):
     """Create session containing user info"""
-    del user['password']
-    session['logged_in'] = True
-    session['user'] = user
+    del user["password"]
+    session["logged_in"] = True
+    session["user"] = user
     return jsonify(user), 200
+
 
 # Views
 @app.route("/")
@@ -42,17 +46,21 @@ def transcripts_view():
     """View transcripts generated before by the user"""
     return render_template("transcripts.html")
 
+
 @app.route("/login")
 def login_view():
     """Display log in page"""
     return render_template("logIn.html")
+
 
 @app.route("/signup")
 def signup_view():
     """Display sign up page"""
     return render_template("signUp.html")
 
+
 # Form handlers
+
 
 @app.route("/api/upload_audio", methods=["POST"])
 def upload_audio():
@@ -63,47 +71,47 @@ def upload_audio():
     )
     return response.content, response.status_code
 
-@app.route('/user/signup', methods=['POST'])
+
+@app.route("/user/signup", methods=["POST"])
 def signup():
     """sign up"""
     print(request.form)
 
     # Create the user object
     user = {
-        "username": request.form.get('username'),
-        "password": request.form.get('password')
+        "username": request.form.get("username"),
+        "password": request.form.get("password"),
     }
 
     # Encrypt the password
-    user['password'] = pbkdf2_sha256.encrypt(user['password'])
+    user["password"] = pbkdf2_sha256.encrypt(user["password"])
 
     # Check for existing username address
-    if db.users.find_one({ "usernmae": user['username'] }):
-        return jsonify({ "error": "Username already in use" }), 400
+    if db.users.find_one({"usernmae": user["username"]}):
+        return jsonify({"error": "Username already in use"}), 400
 
     if db.users.insert_one(user):
         return start_session(user)
 
-    return jsonify({ "error": "Signup failed" }), 400
+    return jsonify({"error": "Signup failed"}), 400
 
-@app.route('/user/signout', methods=['POST'])
+
+@app.route("/user/signout", methods=["POST"])
 def signout():
     """signing out"""
     session.clear()
-    return redirect('/')
+    return redirect("/")
 
-@app.route('/user/login', methods=['POST'])
+
+@app.route("/user/login", methods=["POST"])
 def login():
     """login"""
-    user = db.users.find_one({
-        "username": request.form.get('username')
-    })
+    user = db.users.find_one({"username": request.form.get("username")})
 
-    if user and pbkdf2_sha256.verify(request.form.get('password'), user['password']):
+    if user and pbkdf2_sha256.verify(request.form.get("password"), user["password"]):
         return start_session(user)
 
-    return jsonify({ "error": "Invalid login credentials" }), 401
-
+    return jsonify({"error": "Invalid login credentials"}), 401
 
 
 if __name__ == "__main__":
