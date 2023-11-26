@@ -19,10 +19,13 @@ passlib = "*"
 pytest = "*"
 pytest-flask = "*"
 coverage = "*"
+exceptiongroup = "*"
 
 [dev-packages]
 pylint = "*"
 black = "*"
+pytest = "*"
+pytest-flask = "*"
 
 [requires]
 python_version = "3.10"
