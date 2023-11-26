@@ -68,8 +68,7 @@ def signup_view():
 def upload_audio():
     """upload audio"""
     audio_file = request.files["audio"]
-
-        try:
+    try:
         response = requests.post(
             "http://mlclient:5000/upload", files={"audio": audio_file}, timeout=5
         )
