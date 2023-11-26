@@ -15,10 +15,16 @@ flask = "*"
 dill = "*"
 black = "*"
 python-dotenv = "*"
+colorama = "*"
+install = "*"
+requests-mock = "*"
 
 [dev-packages]
 pylint = "*"
 black = "*"
+requests = "*"
+pytest = "*"
+pytest-flask = "*"
 
 [requires]
 python_version = "3.12"

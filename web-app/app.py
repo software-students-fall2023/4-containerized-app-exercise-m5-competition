@@ -26,9 +26,12 @@ def homescreen_view():
 def upload_audio():
     """upload audio"""
     audio_file = request.files["audio"]
-    response = requests.post(
-        "http://mlclient:5000/upload", files={"audio": audio_file}, timeout=5
-    )
+    try:
+        response = requests.post(
+            "http://localhost:5000/upload", files={"audio": audio_file}, timeout=5
+        )
+    except requests.exceptions.Timeout:
+        return {"error": "Timeout"}, 408
     # Decoding the byte string to a regular string
     response_text = response.content.decode("utf-8")
 
