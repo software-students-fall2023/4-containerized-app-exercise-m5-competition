@@ -4,7 +4,7 @@ import os
 import uuid
 import requests
 import pymongo
-from flask import Flask, request, render_template, redirect, session, jsonify, flash
+from flask import Flask, request, render_template, redirect, session, jsonify
 from passlib.hash import pbkdf2_sha256
 
 app = Flask(__name__)
