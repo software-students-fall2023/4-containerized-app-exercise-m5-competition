@@ -18,6 +18,8 @@ python-dotenv = "*"
 colorama = "*"
 install = "*"
 requests-mock = "*"
+passlib = "*"
+
 
 [dev-packages]
 pylint = "*"
