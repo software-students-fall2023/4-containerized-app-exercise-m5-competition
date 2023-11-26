@@ -15,6 +15,7 @@ flask = "*"
 dill = "*"
 black = "*"
 python-dotenv = "*"
+passlib = "*"
 
 [dev-packages]
 pylint = "*"
