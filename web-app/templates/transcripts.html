@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 
 {% block container %}
-<div>
-    <h1>Transcripts History</h1>
-    <p>Text placeholder</p>
+<div class="transcripts-container">
+  <h1>My Transcripts</h1>
+  {% for transcript in transcripts %}
+    <div class="transcript">
+      <p>Transcript: {{ transcript.transcript }}</p>
+      <p>Sentiment: {{ transcript.sentiment }}</p>
+    </div>
+  {% endfor %}
 </div>
 {% endblock %}

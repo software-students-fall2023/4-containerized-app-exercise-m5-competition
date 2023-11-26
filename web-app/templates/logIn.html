@@ -10,6 +10,13 @@
         <input type="password" name="password"/>
         <div></div>
         <button type="submit" class="submit-btn">Log In</button>
+        {% with messages = get_flashed_messages(category_filter=["error"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="error">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </form>
 </div>
 {% endblock %}

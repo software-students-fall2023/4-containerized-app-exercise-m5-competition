@@ -1,10 +1,11 @@
-"""place-holder"""
+"""web-page backend"""
+
 from functools import wraps
 import os
 import uuid
 import requests
 import pymongo
-from flask import Flask, request, render_template, redirect, session, jsonify
+from flask import Flask, request, redirect, url_for, render_template, session, flash
 from passlib.hash import pbkdf2_sha256
 
 app = Flask(__name__)
@@ -48,7 +49,8 @@ def homescreen_view():
 @login_required
 def transcripts_view():
     """View transcripts generated before by the user"""
-    return render_template("transcripts.html")
+    user_transcripts = db.history.find({"user_id": session["user"]["_id"]})
+    return render_template("transcripts.html", transcripts=user_transcripts)
 
 
 @app.route("/login")
@@ -63,17 +65,31 @@ def signup_view():
     return render_template("signUp.html")
 
 
+@app.route("/transcription_result")
+def transcription_result():
+    """Display transcript result page"""
+    return render_template("transcription_result.html")
+
+
 # Form handlers
 
 
 @app.route("/api/upload_audio", methods=["POST"])
 def upload_audio():
-    """upload audio"""
+    """call the ml client to do ML work"""
     audio_file = request.files["audio"]
+    user_id = session["user"]["_id"] if "logged_in" in session else None
+    data = {"user_id": user_id} if user_id else {}
+
     response = requests.post(
-        "http://mlclient:5000/upload", files={"audio": audio_file}, timeout=5
+        "http://mlclient:5000/upload", files={"audio": audio_file}, data=data, timeout=5
     )
-    return response.content, response.status_code
+
+    if response.status_code == 200:
+        result = response.json()
+        return render_template("transcription_result.html", result=result)
+    flash("Failed to process audio. Please try again.", "error")
+    return redirect(url_for("homescreen_view"))
 
 
 @app.route("/user/signup", methods=["POST"])
@@ -90,14 +106,16 @@ def signup():
     # Encrypt the password
     user["password"] = pbkdf2_sha256.encrypt(user["password"])
 
-    # Check for existing username address
     if db.users.find_one({"username": user["username"]}):
-        return jsonify({"error": "Username already in use"}), 400
+        # Instead of rendering a template, use redirect with a message
+        flash("Username already in use", "error")
+        return redirect(url_for("signup_view"))
 
     if db.users.insert_one(user):
         return start_session(user)
 
-    return jsonify({"error": "Signup failed"}), 400
+    flash("Signup failed", "error")
+    return redirect(url_for("signup_view"))
 
 
 @app.route("/user/signout", methods=["POST"])
@@ -114,7 +132,8 @@ def login():
     if user and pbkdf2_sha256.verify(request.form.get("password"), user["password"]):
         return start_session(user)
 
-    return jsonify({"error": "Invalid login credentials"}), 401
+    flash("Invalid Credentials", "error")
+    return redirect(url_for("login_view"))
 
 
 if __name__ == "__main__":
