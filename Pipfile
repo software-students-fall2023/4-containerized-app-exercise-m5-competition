@@ -16,6 +16,9 @@ dill = "*"
 black = "*"
 python-dotenv = "*"
 passlib = "*"
+pytest = "*"
+pytest-flask = "*"
+coverage = "*"
 
 [dev-packages]
 pylint = "*"
