@@ -26,7 +26,7 @@ def test_return_render_template_after_upload_audio(global_client):
             'audio': (file, 'file.wav')
         }
         with requests_mock.Mocker() as m:
-            m.post('http://localhost:5000/upload', text='data')
+            m.post('http://mlclient:5000/upload', text='data')
             response = global_client.post("/api/upload_audio",
                                    data=data, content_type='multipart/form-data')
             assert response.status_code == 200
@@ -40,7 +40,7 @@ def test_upload_timeout(global_client):
             'audio': (file, 'file.wav')
         }
         with requests_mock.Mocker() as m:
-            m.post('http://localhost:5000/upload', exc=requests.exceptions.Timeout)
+            m.post('http://mlclient:5000/upload', exc=requests.exceptions.Timeout)
             response = global_client.post("/api/upload_audio",
                                    data=data, content_type='multipart/form-data')
             assert response.status_code == 408

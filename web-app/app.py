@@ -28,7 +28,7 @@ def upload_audio():
     audio_file = request.files["audio"]
     try:
         response = requests.post(
-            "http://localhost:5000/upload", files={"audio": audio_file}, timeout=5
+            "http://mlclient:5000/upload", files={"audio": audio_file}, timeout=5
         )
     except requests.exceptions.Timeout:
         return {"error": "Timeout"}, 408
