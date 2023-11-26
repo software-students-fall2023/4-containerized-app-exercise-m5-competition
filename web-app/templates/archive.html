@@ -2,7 +2,15 @@
 
 {% block container %}
 <div>
-    <h1>Transcripts History</h1>
+    <h1>Transcripts Archive</h1>
     <p>Text placeholder</p>
+    {% for transcript in transcripts%}
+    <div>
+        <h2>Created Date:</h2>
+        <p> {{transcript["createdDate"]}}</p>
+        <h2>Content:</h2>
+        <p>{{transcript["content"]}}</p>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

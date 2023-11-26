@@ -4,7 +4,7 @@ import os
 import uuid
 import requests
 import pymongo
-from flask import Flask, request, render_template, redirect, session, jsonify
+from flask import Flask, request, render_template, redirect, session, jsonify, flash
 from passlib.hash import pbkdf2_sha256
 
 app = Flask(__name__)
@@ -24,7 +24,7 @@ def login_required(f):
     def wrap(*args, **kwargs):
         if "logged_in" in session:
             return f(*args, **kwargs)
-        return redirect("/")
+        return jsonify({"error": "Log In Required"}), 401
 
     return wrap
 
@@ -44,11 +44,13 @@ def homescreen_view():
     return render_template("index.html")
 
 
-@app.route("/transcripts")
+@app.route("/archive")
 @login_required
 def transcripts_view():
     """View transcripts generated before by the user"""
-    return render_template("transcripts.html")
+    user = session["user"]
+    transcripts = db.transcripts.find({"userId": user["_id"]})
+    return render_template("archive.html", transcripts=transcripts)
 
 
 @app.route("/login")
