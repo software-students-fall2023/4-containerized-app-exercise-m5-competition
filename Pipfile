@@ -18,10 +18,14 @@ python-dotenv = "*"
 passlib = "*"
 sounddevice = "*"
 wavio = "*"
+coverage = "*"
+exceptiongroup = "*"
 
 [dev-packages]
 pylint = "*"
 black = "*"
+pytest = "*"
+pytest-flask = "*"
 
 [requires]
-python_version = "3.12"
+python_version = "3.10"
