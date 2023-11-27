@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Recorder</title>
+</head>
+<body>
+
+    <h1>3-Second Audio Recorder</h1>
+    <audio id="audioPlayback" controls>
+        <source src="http://127.0.0.1:6001/audio/output.wav" type="audio/wav">
+    </audio>
+
+    <form id="uploadForm" action="/test_mic">
+        <input type="hidden" id="audioData" name="audioData">
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+
+</body>
+</html>

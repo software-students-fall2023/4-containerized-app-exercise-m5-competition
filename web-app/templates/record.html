@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Recorder</title>
+</head>
+<body>
+
+<h1>3-Second Audio Recorder</h1>
+<button id="recordButton">Start Recording</button>
+
+<script>
+    document.getElementById("recordButton").addEventListener("click", () => {
+    fetch('/test_mic')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                return response.text();
+            }
+        })
+        .then(data => {
+            if (data) {
+                console.log(data);
+                // Handle the non-redirect response data here
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+    });
+
+</script>
+
+</body>
+</html>

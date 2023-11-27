@@ -7,7 +7,7 @@ import requests
 import pymongo
 import sounddevice as sd
 import wavio
-from flask import Flask, request, redirect, url_for, render_template, session, flash
+from flask import Flask, request, redirect, url_for, render_template, session, flash, send_from_directory
 from passlib.hash import pbkdf2_sha256
 
 app = Flask(__name__)
@@ -137,24 +137,48 @@ def login():
     flash("Invalid Credentials", "error")
     return redirect(url_for("login_view"))
 
+@app.route("/audio/<filename>")
+def uploaded_file(filename):
+    """serve the shared folder"""
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))  # Directory where app.py is located
+    AUDIO_FILES_DIRECTORY = os.path.join(APP_ROOT, 'audio_files')
+    return send_from_directory(AUDIO_FILES_DIRECTORY, filename)
+
+@app.route("/mic")
+def mic():
+    return render_template("record.html")
+
+@app.route("/recording")
+def recording_view():
+    """Display recording"""
+    return render_template("check_recording.html")
 
 @app.route("/test_mic")
 def test_mic():
-    """test mic access"""
-    fs = 44100  # Sample rate
-    seconds = 3  # Duration of recording
+    """Test microphone and redirect to recording view"""
+    try:
+        # Define recording parameters
+        fs = 44100  # Sample rate
+        seconds = 3  # Duration of recording
 
-    print("Recording...")
-    rec = sd.rec(int(seconds * fs), samplerate=fs, channels=1, blocking=True)
-    print(rec)
-    sd.wait()  # Wait until recording is finished
-    print("Recording finished")
+        # Record audio
+        print("Recording...")
+        rec = sd.rec(int(seconds * fs), samplerate=fs, channels=1, blocking=True)
+        sd.wait()  # Wait until recording is finished
+        print("Recording finished")
 
-    # Write the data to a WAV file
-    wavio.write("output.wav", rec, fs, sampwidth=2)
-    print("Saved as output.wav")
-    return "success test of mic"
+        # Save the recording
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        audio_files_dir_path = os.path.join(dir_path, "audio_files")
+        output_path = os.path.join(audio_files_dir_path, "output.wav")
 
+        wavio.write(output_path, rec, fs, sampwidth=2)
+        print("Saved as output.wav")
+
+    except Exception as e:
+        print("An error occurred:", e)
+        # Handle error (optional: you can redirect to an error page)
+    return redirect(url_for("recording_view"))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5001")))
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")))
