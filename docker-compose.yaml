@@ -31,3 +31,19 @@ services:
       - "7001:5000"
     depends_on:
       - db
+
+  test_mlclient:
+    build: ./machine-learning-client
+    command: pytest
+    volumes:
+      - ./machine-learning-client:/usr/src/app
+    depends_on:
+      - db
+
+  test_webapp:
+    build: ./web-app
+    command: pytest
+    volumes:
+      - ./web-app:/usr/src/app
+    depends_on:
+      - db

@@ -21,6 +21,9 @@ sounddevice = "*"
 coverage = "*"
 exceptiongroup = "*"
 flask-cors = "*"
+mongomock = "*"
+requests = "*"
+requests-mock = "*"
 
 [dev-packages]
 pylint = "*"
