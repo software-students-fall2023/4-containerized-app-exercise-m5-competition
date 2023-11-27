@@ -4,6 +4,7 @@ import pytest
 import mongomock
 from app import app as flask_app
 
+
 # pylint: disable=redefined-outer-name
 
 
