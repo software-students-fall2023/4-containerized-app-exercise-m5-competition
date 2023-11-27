@@ -17,6 +17,9 @@ black = "*"
 python-dotenv = "*"
 passlib = "*"
 pytest = "*"
+sounddevice = "*"
+wavio = "*"
+coverage = "*"
 
 [dev-packages]
 pylint = "*"
