@@ -17,6 +17,10 @@ services:
       - "6001:5000"
     depends_on:
       - db
+    environment:
+      - PULSE_SERVER=host.docker.internal
+    stdin_open: true 
+    tty: true
 
   mlclient:
     build: ./machine-learning-client
