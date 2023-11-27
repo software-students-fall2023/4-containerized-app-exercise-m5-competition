@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transcription Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block container %}
+    <div id="result-container">
+        <h2>Transcription Result</h2>
+        <div id="transcription-content">
+            <h3>Transcribed Text:</h3>
+            <p id="transcript-text">Transcribed text will appear here</p>
+        </div>
+        <div id="sentiment-analysis-section">
+            <h3>Sentiment Analysis:</h3>
+            <p id="sentiment-analysis">Sentiment analysis will appear here</p>
+        </div>
+        <div class="audio-player">
+            <h3>Listen to the Audio:</h3>
+            <audio id="audio-player" controls>
+                <source src="" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block scripts %}
+    <script src="{{ url_for('static', filename='audio_capture.js') }}"></script>
+    {% endblock %}
+</body>
+</html>

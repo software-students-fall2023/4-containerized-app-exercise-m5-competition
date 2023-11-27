@@ -18,9 +18,9 @@ python-dotenv = "*"
 passlib = "*"
 pytest = "*"
 sounddevice = "*"
-wavio = "*"
 coverage = "*"
 exceptiongroup = "*"
+flask-cors = "*"
 
 [dev-packages]
 pylint = "*"
