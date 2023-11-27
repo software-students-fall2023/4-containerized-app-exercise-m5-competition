@@ -1,6 +1,7 @@
 """ml client backend"""
 
 import os
+import subprocess
 import random
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
@@ -30,25 +31,31 @@ def upload_audio():
     if "audio" not in request.files:
         print("No audio file in request")
         return jsonify({"error": "No audio file"}), 400
-
+    random_number = random.randint(10000, 99999)
     audio_file = request.files["audio"]
     user_id = request.form.get("user_id", None)
-
-    if user_id:
-        upload_dir = "/audio_files"
-        if not os.path.exists(upload_dir):
-            os.makedirs(upload_dir)
-
-        # Save the audio file only if user is logged in
-        # Extract file extension and ensure it's included in the filename
-        random_number = random.randint(10000, 99999)
+    
+    upload_dir = "/audio_files"
+    if not os.path.exists(upload_dir):
+        os.makedirs(upload_dir)
+    
+    if not audio_file.filename.lower().endswith('.wav'):
+        temp_filename = f"{user_id}_temp.webm"
+        temp_audio_path = os.path.join(upload_dir, temp_filename)
+        audio_file.save(temp_audio_path)
+        filename = f"{user_id}_{random_number}.wav"
+        audio_path = os.path.join(upload_dir, filename)
+        subprocess.run(["ffmpeg", "-i", temp_audio_path, audio_path])
+        os.remove(temp_audio_path)
+    else:
         filename = f"{user_id}_{random_number}.wav"
         audio_path = os.path.join(upload_dir, filename)
         audio_file.save(audio_path)
-
-        transcript = transcribe_audio(audio_path)
-        sentiment = analyze_sentiment(transcript)
-
+        
+    transcript = transcribe_audio(audio_path)
+    sentiment = analyze_sentiment(transcript)
+    
+    if user_id:
         # Store transcription and sentiment in the database
         document = {
             "user_id": user_id,
@@ -57,7 +64,6 @@ def upload_audio():
             "filename": filename,
         }
         collection.insert_one(document)
-
         # Return transcript, sentiment, and audio path
         return (
             jsonify(
@@ -71,8 +77,7 @@ def upload_audio():
         )
 
     # If user is not logged in, process the file but do not save it
-    transcript = transcribe_audio(audio_file)
-    sentiment = analyze_sentiment(transcript)
+    os.remove(audio_path)
     return jsonify({"transcript": transcript, "sentiment": sentiment}), 200
 
 

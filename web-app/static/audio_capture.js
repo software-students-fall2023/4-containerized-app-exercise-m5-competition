@@ -9,17 +9,17 @@ document.getElementById("start-recording").addEventListener("click", async () =>
     mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
     mediaRecorder.start();
     document.getElementById("stop-recording").disabled = false;
-});
 
-document.getElementById("stop-recording").addEventListener("click", () => {
-    console.log("Stop recording button clicked");
-    mediaRecorder.stop();
-    document.getElementById("stop-recording").disabled = true;
-    mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-        sendAudioToServer(audioBlob);
-        console.log("Recording stopped");
-    };
+    document.getElementById("stop-recording").addEventListener("click", () => {
+        console.log("Stop recording button clicked");
+        mediaRecorder.stop();
+        document.getElementById("stop-recording").disabled = true;
+        mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            sendAudioToServer(audioBlob);
+            console.log("Recording stopped");
+        };
+    });
 });
 
 function sendAudioToServer(audioBlob) {
@@ -31,8 +31,10 @@ function sendAudioToServer(audioBlob) {
         method: "POST",
         body: formData
     })
-    .then(response => {
+    .then(async response => {
         if (!response.ok) {
+            const error_body = await response.json();
+            console.log(error_body);
             throw new Error('Network response was not ok: ' + response.statusText);
         }
         return response.json();
