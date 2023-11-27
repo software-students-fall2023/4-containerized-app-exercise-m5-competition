@@ -34,27 +34,30 @@ def upload_audio():
     random_number = random.randint(10000, 99999)
     audio_file = request.files["audio"]
     user_id = request.form.get("user_id", None)
-    
+
     upload_dir = "/audio_files"
     if not os.path.exists(upload_dir):
         os.makedirs(upload_dir)
-    
-    if not audio_file.filename.lower().endswith('.wav'):
+
+    if not audio_file.filename.lower().endswith(".wav"):
         temp_filename = f"{user_id}_temp.webm"
         temp_audio_path = os.path.join(upload_dir, temp_filename)
         audio_file.save(temp_audio_path)
         filename = f"{user_id}_{random_number}.wav"
         audio_path = os.path.join(upload_dir, filename)
-        subprocess.run(["ffmpeg", "-i", temp_audio_path, audio_path])
+        try:
+            subprocess.run(["ffmpeg", "-i", temp_audio_path, audio_path], check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Error occurred while converting file: {e}")
         os.remove(temp_audio_path)
     else:
         filename = f"{user_id}_{random_number}.wav"
         audio_path = os.path.join(upload_dir, filename)
         audio_file.save(audio_path)
-        
+
     transcript = transcribe_audio(audio_path)
     sentiment = analyze_sentiment(transcript)
-    
+
     if user_id:
         # Store transcription and sentiment in the database
         document = {
