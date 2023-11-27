@@ -34,7 +34,7 @@ services:
 
   test_mlclient:
     build: ./machine-learning-client
-    command: pytest
+    command: pytest && coverage run report
     volumes:
       - ./machine-learning-client:/usr/src/app
     depends_on:
@@ -42,7 +42,7 @@ services:
 
   test_webapp:
     build: ./web-app
-    command: pytest
+    command: pytest && coverage run report
     volumes:
       - ./web-app:/usr/src/app
     depends_on:
