@@ -1,12 +1,15 @@
 """ml client backend"""
 
 import os
+import random
 from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
 import pymongo
 from ml_client import transcribe_audio, analyze_sentiment
 
 
 app = Flask(__name__)
+CORS(app)
 
 client = pymongo.MongoClient("mongodb://db:27017")
 db = client["Isomorphism"]
@@ -23,7 +26,9 @@ def uploaded_file(filename):
 @app.route("/upload", methods=["POST"])
 def upload_audio():
     """get the uploaded audio and do ML work"""
+    print("Audio request received")
     if "audio" not in request.files:
+        print("No audio file in request")
         return jsonify({"error": "No audio file"}), 400
 
     audio_file = request.files["audio"]
@@ -36,8 +41,8 @@ def upload_audio():
 
         # Save the audio file only if user is logged in
         # Extract file extension and ensure it's included in the filename
-        file_extension = os.path.splitext(audio_file.filename)[1] or ".wav"
-        filename = f"{user_id}_{audio_file.filename}{file_extension}"
+        random_number = random.randint(10000, 99999)
+        filename = f"{user_id}_{random_number}.wav"
         audio_path = os.path.join(upload_dir, filename)
         audio_file.save(audio_path)
 
@@ -72,4 +77,4 @@ def upload_audio():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")))
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=True)

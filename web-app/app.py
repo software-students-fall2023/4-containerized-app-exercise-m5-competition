@@ -3,11 +3,19 @@
 from functools import wraps
 import os
 import uuid
+import json
 import requests
 import pymongo
-import sounddevice as sd
-import wavio
-from flask import Flask, request, redirect, url_for, render_template, session, flash
+from flask import (
+    Flask,
+    request,
+    redirect,
+    url_for,
+    render_template,
+    session,
+    flash,
+    jsonify,
+)
 from passlib.hash import pbkdf2_sha256
 
 app = Flask(__name__)
@@ -69,11 +77,35 @@ def signup_view():
 
 @app.route("/transcription_result")
 def transcription_result():
-    """Display transcript result page"""
-    return render_template("transcription_result.html")
+    """Display transcript result page with the transcription results"""
+    result_json = request.args.get("result", "{}")
+    result = json.loads(result_json)
+    return render_template("transcription_result.html", result=result)
 
 
 # Form handlers
+
+
+@app.route("/api/js_upload_audio", methods=["POST"])
+def js_upload_audio():
+    """Endpoint specifically for JavaScript to upload audio and get JSON response"""
+    audio_file = request.files["audio"]
+    if not audio_file:
+        return jsonify({"error": "No audio file provided"}), 400
+
+    user_id = session["user"]["_id"] if "logged_in" in session else None
+    data = {"user_id": user_id} if user_id else {}
+
+    response = requests.post(
+        "http://mlclient:5000/upload", files={"audio": audio_file}, data=data, timeout=5
+    )
+
+    if response.status_code == 200:
+        return jsonify(response.json())
+    return (
+        jsonify({"error": "Error processing audio", "details": response.text}),
+        response.status_code,
+    )
 
 
 @app.route("/api/upload_audio", methods=["POST"])
@@ -138,23 +170,5 @@ def login():
     return redirect(url_for("login_view"))
 
 
-@app.route("/test_mic")
-def test_mic():
-    """test mic access"""
-    fs = 44100  # Sample rate
-    seconds = 3  # Duration of recording
-
-    print("Recording...")
-    rec = sd.rec(int(seconds * fs), samplerate=fs, channels=1, blocking=True)
-    print(rec)
-    sd.wait()  # Wait until recording is finished
-    print("Recording finished")
-
-    # Write the data to a WAV file
-    wavio.write("output.wav", rec, fs, sampwidth=2)
-    print("Saved as output.wav")
-    return "success test of mic"
-
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")))
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=True)
