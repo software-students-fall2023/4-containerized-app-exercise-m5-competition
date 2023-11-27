@@ -5,6 +5,8 @@ import os
 import uuid
 import requests
 import pymongo
+import sounddevice as sd
+import wavio
 from flask import Flask, request, redirect, url_for, render_template, session, flash
 from passlib.hash import pbkdf2_sha256
 
@@ -134,6 +136,24 @@ def login():
 
     flash("Invalid Credentials", "error")
     return redirect(url_for("login_view"))
+
+
+@app.route("/test_mic")
+def test_mic():
+    """test mic access"""
+    fs = 44100  # Sample rate
+    seconds = 3  # Duration of recording
+
+    print("Recording...")
+    rec = sd.rec(int(seconds * fs), samplerate=fs, channels=1, blocking=True)
+    print(rec)
+    sd.wait()  # Wait until recording is finished
+    print("Recording finished")
+
+    # Write the data to a WAV file
+    wavio.write("output.wav", rec, fs, sampwidth=2)
+    print("Saved as output.wav")
+    return "success test of mic"
 
 
 if __name__ == "__main__":

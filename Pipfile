@@ -16,6 +16,8 @@ dill = "*"
 black = "*"
 python-dotenv = "*"
 passlib = "*"
+sounddevice = "*"
+wavio = "*"
 
 [dev-packages]
 pylint = "*"
