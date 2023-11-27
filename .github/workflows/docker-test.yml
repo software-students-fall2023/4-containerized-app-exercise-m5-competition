@@ -18,8 +18,8 @@ jobs:
     # Use Docker Compose to build and run the test services
     - name: Run tests with Docker Compose
       run: |
-        docker-compose -f docker-compose.yml up --build test_webapp test_mlclient
+        docker-compose -f docker-compose.yaml up --build test_webapp test_mlclient
 
     # Shutdown and cleanup
     - name: Shutdown
-      run: docker-compose -f docker-compose.yml down
+      run: docker-compose -f docker-compose.yaml down
