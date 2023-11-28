@@ -8,7 +8,6 @@ from flask_cors import CORS
 import pymongo
 from ml_client import transcribe_audio, analyze_sentiment
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -66,6 +65,7 @@ def upload_audio():
             "sentiment": sentiment.polarity,
             "filename": filename,
         }
+        print("Inserting document into database", document)
         collection.insert_one(document)
         # Return transcript, sentiment, and audio path
         return (
