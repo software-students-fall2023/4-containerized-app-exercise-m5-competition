@@ -97,7 +97,10 @@ def js_upload_audio():
     data = {"user_id": user_id} if user_id else {}
 
     response = requests.post(
-        "http://mlclient:5000/upload", files={"audio": audio_file}, data=data, timeout=5
+        "http://mlclient:5000/upload",
+        files={"audio": audio_file},
+        data=data,
+        timeout=10,
     )
 
     if response.status_code == 200:
@@ -116,7 +119,10 @@ def upload_audio():
     data = {"user_id": user_id} if user_id else {}
 
     response = requests.post(
-        "http://mlclient:5000/upload", files={"audio": audio_file}, data=data, timeout=5
+        "http://mlclient:5000/upload",
+        files={"audio": audio_file},
+        data=data,
+        timeout=10,
     )
 
     if response.status_code == 200:

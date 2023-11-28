@@ -4,6 +4,9 @@ WORKDIR /usr/src/app
 
 COPY requirements.txt ./
 
+# Install ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Install FLAC
