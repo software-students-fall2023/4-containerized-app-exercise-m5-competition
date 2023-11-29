@@ -20,11 +20,11 @@ jobs:
         pipenv shell --fancy --python $(which python)
 
     - name: Change permissions
-      run: sudo chmod -R 777 ./machine-learning-client/audio_files
+      run: sudo chmod -R 777 machine-learning-client/audio_files
 
     # Run tests and coverage for machine-learning-client
     - name: Test with pytest (machine-learning-client)
       run: |
-        cd ./machine-learning-client
+        cd machine-learning-client
         pipenv run coverage run -m pytest
         pipenv run coverage report
