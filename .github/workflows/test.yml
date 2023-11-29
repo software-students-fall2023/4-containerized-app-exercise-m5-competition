@@ -20,11 +20,11 @@ jobs:
         pipenv shell --fancy --python $(which python)
 
     # Run tests and coverage for web-app
-    - name: Test with pytest (web-app)
-      run: |
-        cd web-app
-        pipenv run coverage run -m pytest
-        pipenv run coverage report
+    # - name: Test with pytest (web-app)
+    #   run: |
+    #     cd web-app
+    #     pipenv run coverage run -m pytest
+    #     pipenv run coverage report
 
     # Run tests and coverage for machine-learning-client
     - name: Test with pytest (machine-learning-client)

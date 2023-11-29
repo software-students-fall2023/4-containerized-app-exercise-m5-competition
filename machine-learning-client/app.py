@@ -3,6 +3,7 @@
 import os
 import subprocess
 import random
+import mongomock
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import pymongo
@@ -11,7 +12,12 @@ from ml_client import transcribe_audio, analyze_sentiment
 app = Flask(__name__)
 CORS(app)
 
-client = pymongo.MongoClient("mongodb://db:27017")
+# Use mongomock for testing, else use the real MongoClient
+if os.environ.get("TESTING"):
+    client = mongomock.MongoClient()
+else:
+    client = pymongo.MongoClient("mongodb://db:27017")
+
 db = client["Isomorphism"]
 collection = db["history"]
 app.config["SECRET_KEY"] = "supersecretkey"
@@ -65,7 +71,6 @@ def upload_audio():
             "sentiment": sentiment.polarity,
             "filename": filename,
         }
-        print("Inserting document into database", document)
         collection.insert_one(document)
         # Return transcript, sentiment, and audio path
         return (
