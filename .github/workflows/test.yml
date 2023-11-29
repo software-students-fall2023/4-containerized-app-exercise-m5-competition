@@ -19,16 +19,12 @@ jobs:
         pipenv sync --dev --python $(which python)
         pipenv shell --fancy --python $(which python)
 
-    # Run tests and coverage for web-app
-    # - name: Test with pytest (web-app)
-    #   run: |
-    #     cd web-app
-    #     pipenv run coverage run -m pytest
-    #     pipenv run coverage report
+    - name: Change permissions
+      run: sudo chmod -R 777 ./machine-learning-client/audio_files
 
     # Run tests and coverage for machine-learning-client
     - name: Test with pytest (machine-learning-client)
       run: |
-        cd machine-learning-client
+        cd ./machine-learning-client
         pipenv run coverage run -m pytest
         pipenv run coverage report
