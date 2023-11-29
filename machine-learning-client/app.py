@@ -32,17 +32,16 @@ def uploaded_file(filename):
 @app.route("/upload", methods=["POST"])
 def upload_audio():
     """get the uploaded audio and do ML work"""
-    print("Audio request received")
+
     if "audio" not in request.files:
-        print("No audio file in request")
         return jsonify({"error": "No audio file"}), 400
     random_number = random.randint(10000, 99999)
     audio_file = request.files["audio"]
     user_id = request.form.get("user_id", None)
 
     upload_dir = "/audio_files"
-    if not os.path.exists(upload_dir):
-        return jsonify({"error": "No upload directory"}), 400
+    # if not os.path.exists(upload_dir):
+    #     return jsonify({"error": "No upload directory"}), 400
 
     if not audio_file.filename.lower().endswith(".wav"):
         temp_filename = f"{user_id}_temp.webm"
