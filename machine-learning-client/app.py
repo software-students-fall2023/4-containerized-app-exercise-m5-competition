@@ -42,7 +42,7 @@ def upload_audio():
 
     upload_dir = "/audio_files"
     if not os.path.exists(upload_dir):
-        os.makedirs(upload_dir)
+        return jsonify({"error": "No upload directory"}), 400
 
     if not audio_file.filename.lower().endswith(".wav"):
         temp_filename = f"{user_id}_temp.webm"
