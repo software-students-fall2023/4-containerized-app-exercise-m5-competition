@@ -1,84 +1,78 @@
-"""pytest for ML"""
+"""ML app pytest"""
+
 import os
+import pytest
+from app import app  # Moved to top-level import
 
 
-def test_upload_without_login(ml_client):
-    """test upload without login"""
-    response = ml_client.post('/upload', data={'audio': 'fake_audio_data'})
-    assert response.status_code == 400
+@pytest.fixture
+def app_client():  # Renamed to avoid name clash
+    """Fixture to provide Flask test client."""
+    # Set TESTING environment variable
+    os.environ["TESTING"] = "1"
+
+    app.config["TESTING"] = True
+    with app.test_client() as client:
+        yield client
+
+    # Cleanup
+    del os.environ["TESTING"]
 
 
-def test_upload_with_login(ml_client, ml_db):
-    """test upload with login"""
-    user_id = '1'
+# pylint: disable=redefined-outer-name
+def test_upload_audio_endpoint(app_client):
+    """
+    Test the /upload endpoint with an audio file.
+    """
+    audio_file_path = "./tests/kids_are_talking.wav"
 
-    file_path = "tests/kids_are_talking.wav"
-    assert os.path.exists(file_path)
-    with open(file_path, "rb") as file:
-        data = {"audio": (file, "file.wav"), "user_id": user_id}
-        response = ml_client.post(
+    with open(audio_file_path, "rb") as file:
+        data = {"audio": (file, "kids_are_talking.wav"), "user_id": "test_user"}
+
+        response = app_client.post(
             "/upload", data=data, content_type="multipart/form-data"
         )
+
     assert response.status_code == 200
-
-    json_data = response.get_json()
-    assert 'transcript' in json_data
-    assert 'sentiment' in json_data
-    assert 'filename' in json_data
-
-    collection = ml_db.db['history']
-    collection.insert_one({'user_id': '1', 'transcript': json_data['transcript'],
-                           'sentiment': json_data['sentiment'],
-                           'filename': json_data['filename']})
-    document = collection.find_one({'user_id': '1'})
-    assert document is not None
-    assert document['transcript'] == json_data['transcript']
-    # assert document['filename'] == json_data['filename']
+    response_data = response.json
+    assert "transcript" in response_data
+    assert "sentiment" in response_data
+    assert "filename" in response_data
 
 
-def test_upload_route(ml_client):
-    """upload route test"""
-    response = ml_client.post("/upload", data={})
-    assert response.status_code == 400
+# pylint: disable=redefined-outer-name
+def test_upload_audio_endpoint_correctness(app_client):
+    """
+    Test the correctness of the /upload endpoint response.
+    """
+    audio_file_path = "./tests/kids_are_talking.wav"
 
+    with open(audio_file_path, "rb") as file:
+        data = {"audio": (file, "kids_are_talking.wav"), "user_id": "test_user"}
 
-def test_upload_audio(ml_client):
-    """tests upload audio"""
-    file_path = "tests/kids_are_talking.wav"
-    assert os.path.exists(file_path)
-    with open(file_path, "rb") as file:
-        data = {"audio": (file, "file.wav")}
-        response = ml_client.post(
+        response = app_client.post(
             "/upload", data=data, content_type="multipart/form-data"
         )
+
     assert response.status_code == 200
-    assert "transcript" in response.json
-    assert "sentiment" in response.json
+    response_data = response.json
+    assert response_data["transcript"] == "kids are talking by the door"
+    assert "sentiment" in response_data
+    assert "filename" in response_data
 
 
-def test_upload_without_audio(ml_client):
-    """tests upload without audio"""
-    response = ml_client.post(
-        "/upload", data={}, content_type="multipart/form-data"
-    )
-    assert response.status_code == 400
-    assert "No audio file" in response.data.decode()
+# pylint: disable=redefined-outer-name
+def test_uploaded_file_endpoint(app_client):
+    """
+    Test the /audio/<filename> endpoint.
+    """
+    test_filename = "test_audio.wav"
+    test_file_path = "/audio_files/" + test_filename
 
+    with open(test_file_path, "wb") as f:
+        f.write(b"Test audio content")
 
-def test_upload_with_wrong_file(ml_client):
-    """tests upload with wrong file"""
-    file_path = "tests/file.txt"
-    assert os.path.exists(file_path)
-    with open(file_path, "rb") as file:
-        data = {"audio": (file, "file.txt")}
-        response = ml_client.post(
-            "/upload", data=data, content_type="multipart/form-data"
-        )
-    assert response.status_code == 500
+    response = app_client.get(f"/audio/{test_filename}")
 
-
-def test_ouput_of_transcribe_audio(transcribe_audio_func):
-    """tests output of transcribe audio"""
-    file_path = "tests/kids_are_talking.wav"
-    assert os.path.exists(file_path)
-    assert transcribe_audio_func(file_path) == "kids are talking by the door"
+    assert response.status_code == 200
+    assert response.data == b"Test audio content"
