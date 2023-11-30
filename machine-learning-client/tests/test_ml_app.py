@@ -2,8 +2,8 @@
 
 import os
 import pytest
-from app import app  # Moved to top-level import
-from ml_defaults import USER_AUDIO
+from src.main import app  # Moved to top-level import
+from src.ml_defaults import USER_AUDIO
 
 @pytest.fixture
 def app_client():  # Renamed to avoid name clash

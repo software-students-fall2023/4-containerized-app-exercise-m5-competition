@@ -7,9 +7,30 @@ import mongomock
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import pymongo
-from ml_client import transcribe_audio, analyze_sentiment
+from src.ml_client import transcribe_audio, analyze_sentiment
+from src.ml_defaults import USER_AUDIO
 
-app = Flask(__name__)
+
+def make_directories(USER_AUDIO):
+    """
+    A function to ensure all the directories needed for the application to run are present.
+    """
+    for directory in [USER_AUDIO]:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+
+def init_app():
+    """
+    A function to initialize the application and instantiate the model used for sketching
+    """
+    make_directories(USER_AUDIO)
+    app_ = Flask(__name__)
+
+    return app_
+
+
+app = init_app()
 CORS(app)
 
 # Use mongomock for testing, else use the real MongoClient
