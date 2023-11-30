@@ -12,10 +12,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install FLAC
 RUN apt-get update && apt-get install -y flac
 
+COPY . .
+
 # Make Directory for audio storage
 RUN mkdir -p /audio_files
-
-COPY . .
 
 EXPOSE 5000
 
