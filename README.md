@@ -6,7 +6,7 @@
 ![Client Build Status](https://img.shields.io/badge/tests-100%25-success)
 
 ## Description
-A plain-language, easy-to-understand description of your project goes here. This should include the main purpose of the project, its key features, and any unique elements it has. Try to keep it concise yet informative.
+Voice converter is a web application that analysis input voice and transfer that into text. With simple instruction, you can save text to the database and visualize it in the web.  
 
 ## Team Members
 - [Vincent Bai](https://github.com/VincentBai-dotcom )
