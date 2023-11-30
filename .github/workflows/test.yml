@@ -20,7 +20,7 @@ jobs:
           python -m pip install pipenv
           cd machine-learning-client
           mkdir audio_files
-          cd..
+          cd ..
           pipenv sync --dev --python $(which python)
           pipenv shell --fancy --python $(which python)
 
