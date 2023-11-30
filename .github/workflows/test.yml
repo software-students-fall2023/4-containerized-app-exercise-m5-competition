@@ -30,6 +30,5 @@ jobs:
     - name: Test with pytest (machine-learning-client)
       run: |
         cd machine-learning-client
-        ls
-        pipenv run coverage run -m pytest
-        pipenv run coverage report
+        sudo pipenv run coverage run -m pytest
+        sudo pipenv run coverage report
