@@ -3,7 +3,7 @@
 import os
 import pytest
 from app import app  # Moved to top-level import
-
+from ml_defaults import USER_AUDIO
 
 @pytest.fixture
 def app_client():  # Renamed to avoid name clash
@@ -18,21 +18,26 @@ def app_client():  # Renamed to avoid name clash
     # Cleanup
     del os.environ["TESTING"]
 
+@pytest.fixture(name="valid_test_voice")
+def fixture_valid_test_image():
+    return open(USER_AUDIO / "kids_are_talking.wav", "rb")
+
+
+@pytest.fixture(name="invalid_test_image")
+def fixture_invalid_test_image():
+    """Fixture to provide an invalid test audio."""
+    return open(USER_AUDIO / "kids_are_talking.webm", "rb")
+
 
 # pylint: disable=redefined-outer-name
-def test_upload_audio_endpoint(app_client):
+def test_upload_audio_endpoint(app_client, valid_test_voice):
     """
     Test the /upload endpoint with an audio file.
     """
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    audio_file_path = os.path.join(current_dir, "kids_are_talking.wav")
-
-    with open(audio_file_path, "rb") as file:
-        data = {"audio": (file, "kids_are_talking.wav"), "user_id": "test_user"}
-
-        response = app_client.post(
-            "/upload", data=data, content_type="multipart/form-data"
-        )
+    data = {"audio": (valid_test_voice, "kids_are_talking.wav"), "user_id": "test_user"}
+    response = app_client.post(
+        "/upload", data=data, content_type="multipart/form-data"
+    )
 
     assert response.status_code == 200
     response_data = response.json
@@ -42,19 +47,15 @@ def test_upload_audio_endpoint(app_client):
 
 
 # pylint: disable=redefined-outer-name
-def test_upload_audio_endpoint_correctness(app_client):
+def test_upload_audio_endpoint_correctness(app_client, valid_test_voice):
     """
     Test the correctness of the /upload endpoint response.
     """
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    audio_file_path = os.path.join(current_dir, "kids_are_talking.wav")
+    data = {"audio": (valid_test_voice, "kids_are_talking.wav"), "user_id": "test_user"}
 
-    with open(audio_file_path, "rb") as file:
-        data = {"audio": (file, "kids_are_talking.wav"), "user_id": "test_user"}
-
-        response = app_client.post(
-            "/upload", data=data, content_type="multipart/form-data"
-        )
+    response = app_client.post(
+        "/upload", data=data, content_type="multipart/form-data"
+    )
 
     assert response.status_code == 200
     response_data = response.json
