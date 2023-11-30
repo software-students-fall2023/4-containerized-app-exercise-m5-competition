@@ -6,7 +6,7 @@
 .vscode/settings.json
 
 # audio files
-# machine-learning-client/audio_files/
+machine-learning-client/audio_files/
 
 # emacs backups
 *~
