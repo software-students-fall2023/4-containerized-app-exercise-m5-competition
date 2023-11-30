@@ -14,9 +14,6 @@ RUN apt-get update && apt-get install -y flac
 
 COPY . .
 
-# Make Directory for audio storage
-RUN mkdir -p /audio_files
-
 EXPOSE 5000
 
 CMD ["python", "./app.py"]
