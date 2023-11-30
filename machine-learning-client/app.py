@@ -41,8 +41,8 @@ def upload_audio():
     user_id = request.form.get("user_id", None)
 
     upload_dir = "/audio_files"
-    if not os.path.exists(upload_dir):
-        os.makedirs(upload_dir)
+    if not os.path.exists("audio_files"):
+        os.makedirs("audio_files")
 
     if not audio_file.filename.lower().endswith(".wav"):
         temp_filename = f"{user_id}_temp.webm"
