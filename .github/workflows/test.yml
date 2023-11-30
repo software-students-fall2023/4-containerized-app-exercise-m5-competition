@@ -29,8 +29,6 @@ jobs:
     # Run tests and coverage for machine-learning-client
     - name: Test with pytest (machine-learning-client)
       run: |
-        ls
         cd machine-learning-client
-        chmod 777 ./tests/kids_are_talking.wav
         pipenv run coverage run -m pytest
         pipenv run coverage report
