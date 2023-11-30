@@ -24,7 +24,8 @@ def test_upload_audio_endpoint(app_client):
     """
     Test the /upload endpoint with an audio file.
     """
-    audio_file_path = "./tests/kids_are_talking.wav"
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    audio_file_path = os.path.join(current_dir, "kids_are_talking.wav")
 
     with open(audio_file_path, "rb") as file:
         data = {"audio": (file, "kids_are_talking.wav"), "user_id": "test_user"}
@@ -45,7 +46,8 @@ def test_upload_audio_endpoint_correctness(app_client):
     """
     Test the correctness of the /upload endpoint response.
     """
-    audio_file_path = "./tests/kids_are_talking.wav"
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    audio_file_path = os.path.join(current_dir, "kids_are_talking.wav")
 
     with open(audio_file_path, "rb") as file:
         data = {"audio": (file, "kids_are_talking.wav"), "user_id": "test_user"}
