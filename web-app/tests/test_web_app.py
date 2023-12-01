@@ -4,6 +4,7 @@ import os
 from contextlib import contextmanager
 from unittest.mock import patch
 import pytest
+import json
 from flask import template_rendered
 
 # Set TESTING environment variable for the test session
@@ -26,6 +27,7 @@ class MockResponse:
 @contextmanager
 def captured_templates(app):
     """Capture templates for future assertions."""
+
     recorded = []
 
     def record(_sender, template, context, **_extra):
@@ -41,6 +43,7 @@ def captured_templates(app):
 @pytest.fixture
 def client():
     """Pytest fixture for creating a test client for the web-app."""
+
     app.config["WTF_CSRF_ENABLED"] = False
     with app.test_client() as client:
         yield client
@@ -48,6 +51,7 @@ def client():
 
 def test_user_signup_and_session(client):
     """Test the user signup process and session start."""
+
     response = client.post(
         "/user/signup", data={"username": "testuser", "password": "testpassword"}
     )
@@ -59,8 +63,28 @@ def test_user_signup_and_session(client):
         assert session["user"]["username"] == "testuser"
 
 
+def test_signup_username_already_in_use(client):
+    """Test signup with a username that is already in use."""
+
+    username = "existing_user"
+    client.post(
+        "/user/signup",
+        data={"username": username, "password": "password"},
+        follow_redirects=True,
+    )
+
+    response = client.post(
+        "/user/signup",
+        data={"username": username, "password": "new_password"},
+        follow_redirects=True,
+    )
+
+    assert b"Username already in use" in response.data
+
+
 def test_login_view(client):
     """Test the rendering of the login view."""
+
     with captured_templates(app) as templates:
         response = client.get("/login")
         assert response.status_code == 200
@@ -70,6 +94,7 @@ def test_login_view(client):
 
 def test_login(client):
     """Test the user login functionality."""
+
     client.post(
         "/user/signup",
         data={"username": "test_user", "password": "test_password"},
@@ -88,6 +113,7 @@ def test_login(client):
 
 def test_logout(client):
     """Test the user logout functionality."""
+
     response = client.post("/user/signout", follow_redirects=True)
     assert response.status_code == 200
 
@@ -97,6 +123,7 @@ def test_logout(client):
 
 def test_transcripts_view(client):
     """Test the transcripts view functionality."""
+
     with client.session_transaction() as sess:
         sess["logged_in"] = True
         sess["user"] = {"_id": "some_user_id"}
@@ -107,6 +134,7 @@ def test_transcripts_view(client):
 
 def test_upload_audio(client):
     """Test the audio upload functionality."""
+
     with patch(
         "requests.post",
         return_value=MockResponse({"transcript": "test transcript"}, 200),
@@ -120,3 +148,55 @@ def test_upload_audio(client):
                 content_type="multipart/form-data",
             )
         assert response.status_code == 200
+
+
+def test_js_upload_audio(client):
+    """Test the /api/js_upload_audio endpoint for audio upload and JSON response."""
+
+    mock_response_data = {
+        "transcript": "test transcript",
+        "sentiment": 0.5,
+        "filename": "testfile.wav",
+    }
+
+    with patch(
+        "requests.post", return_value=MockResponse(mock_response_data, 200)
+    ) as mock_post:
+        audio_file_path = os.path.join("tests/test_audios", "kids_are_talking.wav")
+
+        with open(audio_file_path, "rb") as audio:
+            response = client.post(
+                "/api/js_upload_audio",
+                data={"audio": audio},
+                content_type="multipart/form-data",
+            )
+
+        assert response.status_code == 200
+        assert mock_post.called
+
+        json_data = response.get_json()
+        assert json_data["transcript"] == "test transcript"
+        assert json_data["sentiment"] == 0.5
+        assert json_data["filename"] == "testfile.wav"
+
+
+def test_transcription_result_route(client):
+    """Test the transcription result route."""
+
+    sample_result = {
+        "transcript": "This is a test transcript.",
+        "sentiment": 0.75,
+        "filename": "test_audio.wav",
+    }
+
+    response = client.get(
+        "/transcription_result", query_string={"result": json.dumps(sample_result)}
+    )
+
+    assert response.status_code == 200
+
+    data = response.get_data(as_text=True)
+    assert "Transcription Result" in data
+    assert "This is a test transcript." in data
+    assert "0.75" in data
+    assert "test_audio.wav" in data

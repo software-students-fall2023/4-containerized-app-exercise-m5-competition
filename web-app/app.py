@@ -110,7 +110,7 @@ def js_upload_audio():
     )
 
     if response.status_code == 200:
-        return jsonify(response.json())
+        return jsonify(response.json()), 200
     return (
         jsonify({"error": "Error processing audio", "details": response.text}),
         response.status_code,
