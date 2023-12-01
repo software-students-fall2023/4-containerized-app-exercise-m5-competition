@@ -9,6 +9,9 @@ from app import app
 
 @pytest.fixture
 def client():
+    """
+    Client fixture for test
+    """
     app.config["TESTING"] = True
     with app.test_client() as client:
         yield client
@@ -36,7 +39,7 @@ def test_upload_audio_with_file(client):
         response = client.post("/upload", data=data, content_type="multipart/form-data")
         assert response.status_code == 200
 
-        
+
 def test_upload_audio_correctness_short_file(client):
     """
     Test the /upload route with a short audio file.
@@ -66,8 +69,12 @@ def test_upload_audio_correctness_long_file(client):
         response = client.post("/upload", data=data, content_type="multipart/form-data")
         assert response.status_code == 200
         json_data = response.get_json()
-        assert json_data.get("transcript") == "the stale smell of old beer lingers it takes heat to bring out the odor a cold dip restores health and zest a salt pickle taste fine with ham tacos al pastor are my favorite a zestful food is the hot cross bun"
-        
+        assert json_data.get("transcript") == (
+            "the stale smell of old beer lingers it takes heat to bring out the odor a cold dip "
+            "restores health and zest a salt pickle taste fine with ham tacos al pastor are my "
+            "favorite a zestful food is the hot cross bun"
+        )
+
 
 def test_upload_audio_with_webm_format_file(client):
     """

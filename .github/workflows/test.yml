@@ -30,4 +30,10 @@ jobs:
       run: |
         cd machine-learning-client
         pipenv run coverage run -m pytest
-        pipenv run coverage report
+        pipenv run coverage report --fail-under=80
+
+    # - name: Test with pytest (web-app)
+    #   run: |
+    #     cd web-app
+    #     pipenv run coverage run -m pytest
+    #     pipenv run coverage report --fail-under=80
