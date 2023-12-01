@@ -1,26 +1,55 @@
+/* Root Variables */
+:root {
+    --primary-color: #4CAF50; /* Primary color */
+    --primary-hover-color: #45a049; /* Darker shade for hover */
+    --error-color: #ff0033; /* Error color */
+    --success-color: #28a745; /* Success color */
+    --font-family: 'Arial', sans-serif; /* Change as needed */
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --border-radius: 4px;
+}
+
+/* Base styles */
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--primary-hover-color);
+}
+
 /* Upload container styling */
 .upload-container {
     text-align: center;
     padding: 40px;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: var(--box-shadow);
     margin-top: 30px;
 }
 
 /* Button styling */
-button.submit-btn {
-    background-color: #4CAF50;
+button.submit-btn, .back-btn {
+    background-color: var(--primary-color);
     color: white;
     padding: 12px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-button.submit-btn:hover {
-    background-color: #45a049;
+button.submit-btn:hover, .back-btn:hover {
+    background-color: var(--primary-hover-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* File input styling */
@@ -29,15 +58,20 @@ input[type='file'] {
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: border-color 0.3s;
+}
+
+input[type='file']:hover,
+input[type='file']:focus {
+    border-color: var(--primary-color);
 }
 
 /* Response message styling */
 #response-message {
-    color: #28a745;
+    color: var(--success-color);
     margin: 20px 0;
 }
-
-/* Additional styles for result.html */
 
 /* Response container styling */
 .response-container {
@@ -45,42 +79,36 @@ input[type='file'] {
     padding: 40px;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: var(--box-shadow);
     margin-top: 30px;
 }
 
-/* Status code styling */
-.status-code {
+/* Status code and response content styling */
+.status-code, .response-content {
     color: #333;
     margin-bottom: 20px;
 }
 
-/* Response content styling */
 .response-content {
-    margin-bottom: 20px;
     padding: 15px;
     background-color: #f8f8f8;
     border-radius: 5px;
 }
 
-/* Back button styling */
-.back-btn {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none; /* Remove underline from links */
-}
-
+/* Error message styling */
 .error {
-    color: red;
+    color: var(--error-color);
     font-weight: bold;
 }
 
-.back-btn:hover {
-    background-color: #45a049;
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .upload-container, .response-container {
+        padding: 20px;
+        margin-top: 15px;
+    }
+
+    button.submit-btn, .back-btn {
+        padding: 10px 15px;
+    }
 }
