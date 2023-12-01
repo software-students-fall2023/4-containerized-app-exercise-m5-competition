@@ -1,6 +1,11 @@
-name: Machine-Learning-Client Tests
+name: Machine-Learning-Client
 
-on: [push, pull_request]
+on: 
+  pull_request_review:
+    types: [submitted]
+  push:
+    branches:
+      - main
 
 jobs:
   test:

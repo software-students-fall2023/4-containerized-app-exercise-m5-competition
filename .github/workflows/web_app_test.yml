@@ -1,6 +1,11 @@
-name: Web-App Tests
+name: Web-App
 
-on: [push, pull_request]
+on: 
+  pull_request_review:
+    types: [submitted]
+  push:
+    branches:
+      - main
 
 jobs:
   test:
