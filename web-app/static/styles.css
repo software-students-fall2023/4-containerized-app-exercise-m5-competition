@@ -4,12 +4,10 @@ body {
     margin: 40px;
     background-color: #f4f4f4;
     color: #333;
-    text-align: left;
 }
 
 h1, h2 {
     color: #444;
-    text-align: left;
 }
 
 a {
@@ -21,14 +19,17 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Flashes (Notifications) Styling */
+/* Notifications */
 .flashes p {
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
     padding: 10px;
     border-radius: 4px;
     margin: 20px 0;
-    text-align: left;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Form Styling */
@@ -36,31 +37,28 @@ form {
     background-color: #fff;
     padding: 20px;
     border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
+   
+    margin-bottom: 20px;
 }
 
-form label {
+label {
     display: block;
     margin-bottom: 8px;
-    text-align: left;
 }
 
-form input[type="text"], form input[type="password"], form input[type="email"] {
+input[type="text"], input[type="password"], input[type="email"], input[type='file'] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
     margin-bottom: 20px;
-    text-align: left;
 }
 
-form input[type="radio"] {
+input[type="radio"] {
     margin-right: 5px;
 }
 
-/* Button Styling */
-input[type="submit"], button {
+input[type="submit"], button.submit-btn, .back-btn {
     background-color: #007BFF;
     color: #fff;
     padding: 10px 15px;
@@ -68,33 +66,50 @@ input[type="submit"], button {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    
 }
 
-input[type="submit"]:hover, button:hover {
+input[type="submit"]:hover, button.submit-btn:hover, .back-btn:hover {
     background-color: #0056b3;
 }
 
 /* Container Styling */
-.container {
+.container, .upload-container, .response-container {
     max-width: 600px;
-    margin: 0 auto;
+    margin: 30px auto;
     background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    text-align: left;
+    border-radius: 10px;
+    
+    text-align: center;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 600px) {
-    .container {
-        width: 100%;
-        margin: 20px;
-        padding: 15px;
-    }
+/* Response Message and Error Styling */
+#response-message, .error {
+    color: #28a745;
+    margin: 20px 0;
+}
 
-    body {
-        margin: 20px;
-    }
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+/* Back Button Specific Styling */
+.back-btn {
+    background-color: #4CAF50;
+}
+
+/* Status Code and Response Content Styling */
+.status-code, .response-content {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.response-content {
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 5px;
 }
