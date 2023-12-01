@@ -49,7 +49,26 @@ function sendAudioToServer(audioBlob) {
 }
 
 function updateResultPage(data) {
-    // Simple logs for testing
-    console.log("Transcript:", data.transcript);
-    console.log("Sentiment:", data.sentiment);
+    const resultContainer = document.getElementById("response-message");
+    resultContainer.innerHTML = `
+        <div>
+            <h3>Transcribed Text:</h3>
+            <p>${data.transcript || 'No transcription available.'}</p>
+        </div>
+        <div>
+            <h3>Sentiment Analysis:</h3>
+            <p>${data.sentiment || 'No sentiment data.'}</p>
+        </div>
+    `;
+    if (data.filename) {
+        resultContainer.innerHTML += `
+            <div>
+                <h3>Listen to the Audio:</h3>
+                <audio controls>
+                    <source src="http://127.0.0.1:7001/audio/${data.filename}" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        `;
+    }
 }
