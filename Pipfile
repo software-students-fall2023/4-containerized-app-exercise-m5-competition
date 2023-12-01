@@ -24,6 +24,7 @@ flask-cors = "*"
 mongomock = "*"
 requests = "*"
 requests-mock = "*"
+pytest-mock = "*"
 
 [dev-packages]
 pylint = "*"
