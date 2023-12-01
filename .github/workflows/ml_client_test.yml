@@ -1,4 +1,4 @@
-name: Machine-Learning-Client Tests
+name: Machine-Learning-Client
 
 on: [push, pull_request]
 
