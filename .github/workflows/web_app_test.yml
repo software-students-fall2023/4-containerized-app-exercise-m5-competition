@@ -1,11 +1,6 @@
 name: Web-App
 
-on: 
-  pull_request_review:
-    types: [submitted]
-  push:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   test:
