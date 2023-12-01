@@ -25,13 +25,61 @@ def test_upload_audio_no_file(client):
 
 def test_upload_audio_with_file(client):
     """
-    Test the /upload route with an audio file.
+    Test the /upload route with a valid audio file.
     """
     # Path to the audio file
-    audio_file_path = os.path.join("tests", "kids_are_talking.wav")
+    audio_file_path = os.path.join("tests/test_audios", "kids_are_talking.wav")
 
     # Open the file in binary mode
     with open(audio_file_path, "rb") as audio_file:
         data = {"audio": (audio_file, "kids_are_talking.wav")}
         response = client.post("/upload", data=data, content_type="multipart/form-data")
         assert response.status_code == 200
+
+        
+def test_upload_audio_correctness_short_file(client):
+    """
+    Test the /upload route with a short audio file.
+    """
+    # Path to the audio file
+    audio_file_path = os.path.join("tests/test_audios", "kids_are_talking.wav")
+
+    # Open the file in binary mode
+    with open(audio_file_path, "rb") as audio_file:
+        data = {"audio": (audio_file, "kids_are_talking.wav")}
+        response = client.post("/upload", data=data, content_type="multipart/form-data")
+        assert response.status_code == 200
+        json_data = response.get_json()
+        assert json_data.get("transcript") == "kids are talking by the door"
+
+
+def test_upload_audio_correctness_long_file(client):
+    """
+    Test the /upload route with a short audio file.
+    """
+    # Path to the audio file
+    audio_file_path = os.path.join("tests/test_audios", "harvard.wav")
+
+    # Open the file in binary mode
+    with open(audio_file_path, "rb") as audio_file:
+        data = {"audio": (audio_file, "harvard.wav")}
+        response = client.post("/upload", data=data, content_type="multipart/form-data")
+        assert response.status_code == 200
+        json_data = response.get_json()
+        assert json_data.get("transcript") == "the stale smell of old beer lingers it takes heat to bring out the odor a cold dip restores health and zest a salt pickle taste fine with ham tacos al pastor are my favorite a zestful food is the hot cross bun"
+        
+
+def test_upload_audio_with_webm_format_file(client):
+    """
+    Test the /upload route with a .webm short audio file.
+    """
+    # Path to the audio file
+    audio_file_path = os.path.join("tests/test_audios", "kids_are_talking.webm")
+
+    # Open the file in binary mode
+    with open(audio_file_path, "rb") as audio_file:
+        data = {"audio": (audio_file, "kids_are_talking.webm")}
+        response = client.post("/upload", data=data, content_type="multipart/form-data")
+        assert response.status_code == 200
+        json_data = response.get_json()
+        assert json_data.get("transcript") == "kids are talking by the door"
