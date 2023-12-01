@@ -6,6 +6,7 @@ import uuid
 import json
 import requests
 import pymongo
+import mongomock
 from flask import (
     Flask,
     request,
@@ -19,8 +20,13 @@ from flask import (
 from passlib.hash import pbkdf2_sha256
 
 app = Flask(__name__)
-# Connecting to local host and same db as ml's backend
-client = pymongo.MongoClient("mongodb://db:27017")
+
+# Use mongomock for testing, else use the real MongoClient
+if os.environ.get("TESTING"):
+    client = mongomock.MongoClient()
+else:
+    client = pymongo.MongoClient("mongodb://db:27017")
+
 db = client["Isomorphism"]
 
 # Set secret key for sessions
@@ -144,10 +150,10 @@ def signup():
     }
 
     # Encrypt the password
-    user["password"] = pbkdf2_sha256.encrypt(user["password"])
+    user["password"] = pbkdf2_sha256.hash(user["password"])
 
     if db.users.find_one({"username": user["username"]}):
-        # Instead of rendering a template, use redirect with a message
+        # redirect with a message
         flash("Username already in use", "error")
         return redirect(url_for("signup_view"))
 
