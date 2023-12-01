@@ -7,6 +7,13 @@
     <div class="transcript">
       <p>Transcript: {{ transcript.transcript }}</p>
       <p>Sentiment: {{ transcript.sentiment }}</p>
+      <div class="audio-player">
+        <h3>Listen to the Audio:</h3>
+        <audio controls>
+            <source src="http://127.0.0.1:7001/audio/{{ transcript.filename }}" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+      </div>
     </div>
   {% endfor %}
 </div>

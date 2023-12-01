@@ -37,7 +37,6 @@ form {
     background-color: #fff;
     padding: 20px;
     border-radius: 4px;
-   
     margin-bottom: 20px;
 }
 
@@ -81,8 +80,7 @@ input[type="submit"]:hover, button.submit-btn:hover, .back-btn:hover {
     margin: 30px auto;
     background-color: #fff;
     padding: 20px;
-    border-radius: 10px;
-    
+    border-radius: 10px; 
     text-align: center;
 }
 
