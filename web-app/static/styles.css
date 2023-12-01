@@ -1,86 +1,100 @@
-/* Upload container styling */
-.upload-container {
-    text-align: center;
-    padding: 40px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    margin-top: 30px;
-}
-
-/* Button styling */
-button.submit-btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button.submit-btn:hover {
-    background-color: #45a049;
-}
-
-/* File input styling */
-input[type='file'] {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-}
-
-/* Response message styling */
-#response-message {
-    color: #28a745;
-    margin: 20px 0;
-}
-
-/* Additional styles for result.html */
-
-/* Response container styling */
-.response-container {
-    text-align: center;
-    padding: 40px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    margin-top: 30px;
-}
-
-/* Status code styling */
-.status-code {
+/* Base Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #f4f4f4;
     color: #333;
-    margin-bottom: 20px;
+    text-align: left;
 }
 
-/* Response content styling */
-.response-content {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #f8f8f8;
-    border-radius: 5px;
+h1, h2 {
+    color: #444;
+    text-align: left;
 }
 
-/* Back button styling */
-.back-btn {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: white;
+a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Flashes (Notifications) Styling */
+.flashes p {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+/* Form Styling */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+form input[type="text"], form input[type="password"], form input[type="email"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+form input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Button Styling */
+input[type="submit"], button {
+    background-color: #007BFF;
+    color: #fff;
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    text-decoration: none; /* Remove underline from links */
+    transition: background-color 0.3s;
+    text-align: center;
 }
 
-.error {
-    color: red;
-    font-weight: bold;
+input[type="submit"]:hover, button:hover {
+    background-color: #0056b3;
 }
 
-.back-btn:hover {
-    background-color: #45a049;
+/* Container Styling */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .container {
+        width: 100%;
+        margin: 20px;
+        padding: 15px;
+    }
+
+    body {
+        margin: 20px;
+    }
 }
