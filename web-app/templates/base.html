@@ -5,22 +5,26 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
 </head>
 <body>
-  <div class="container">
-    <nav>
-      <a href="/">Home</a>
-      {% if session.logged_in %}
-        <span>Welcome, {{ session.user.username }}!</span>
-        <a href="/transcripts">My Transcripts</a>
-        <form method="POST" action="/user/signout" style="display: inline;">
-          <button type="submit">Sign Out</button>
-        </form>
-      {% else %}
-        <a href="/login">Log In</a>
-        <a href="/signup">Sign Up</a>
-      {% endif %}
+  <header>
+    <nav class="navbar">
+      <div class="nav-logo"><a href="/">audio trancsription</a></div>
+      <div class="nav-links">
+        {% if session.logged_in %}
+          <span class="user-welcome">Welcome, {{ session.user.username }}!</span>
+          <a href="/transcripts">My Transcripts</a>
+          <form method="POST" action="/user/signout" class="signout-form">
+            <button type="submit" class="btn btn-signout">Sign Out</button>
+          </form>
+        {% else %}
+          <a href="/login">Log In</a>
+          <a href="/signup">Sign Up</a>
+        {% endif %}
+      </div>
     </nav>
-    <main>{% block container %}{% endblock %}</main>
-  </div>
+  </header>
+  <main class="main-container">
+    {% block container %}{% endblock %}
+  </main>
   {% block scripts %}
   {% endblock scripts %}
 </body>
