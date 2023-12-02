@@ -68,7 +68,7 @@ def upload_audio():
         document = {
             "user_id": user_id,
             "transcript": transcript,
-            "sentiment": sentiment,
+            "sentiment": sentiment.polarity,
             "filename": filename,
         }
         collection.insert_one(document)
@@ -77,7 +77,7 @@ def upload_audio():
             jsonify(
                 {
                     "transcript": transcript,
-                    "sentiment": sentiment,
+                    "sentiment": sentiment.polarity,
                     "filename": filename,  # filename with extension
                 }
             ),
@@ -86,7 +86,7 @@ def upload_audio():
 
     # If user is not logged in, process the file but do not save it
     os.remove(audio_path)
-    return jsonify({"transcript": transcript, "sentiment": sentiment}), 200
+    return jsonify({"transcript": transcript, "sentiment": sentiment.polarity}), 200
 
 
 if __name__ == "__main__":
