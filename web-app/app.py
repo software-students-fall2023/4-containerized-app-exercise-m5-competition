@@ -113,7 +113,7 @@ def js_upload_audio():
         "http://mlclient:5000/upload",
         files={"audio": audio_file},
         data=data,
-        timeout=10,
+        timeout=60,
     )
 
     if response.status_code == 200:
@@ -138,7 +138,7 @@ def upload_audio():
         "http://mlclient:5000/upload",
         files={"audio": audio_file},
         data=data,
-        timeout=10,
+        timeout=60,
     )
 
     if response.status_code == 200:
