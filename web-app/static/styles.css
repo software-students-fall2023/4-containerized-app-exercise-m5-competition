@@ -39,7 +39,7 @@ h1, h2 {
 
 /* Audio Player Styling */
 .audio-player {
-    border-bottom: 1px solid #eee;
+    border-bottom: 3px solid #eee;
     text-align: center;
     margin-top: 20px;
 }
@@ -52,6 +52,10 @@ audio {
 
 /* Attitude Analysis Styling */
 .transcript p:nth-child(3) {
+    font-weight: bold;
+    color: #0056b3;
+}
+.sentiment-interpretation {
     font-weight: bold;
     color: #0056b3;
 }
@@ -117,6 +121,36 @@ nav a:hover, nav form button:hover {
     margin-bottom: 20px;
 }
 
+/* Styling for Input Fields */
+.upload-container input[type="text"],
+.upload-container input[type="password"] {
+    width: 380px; /* Full width minus padding */
+    padding: 12px 20px; /* Comfortable padding */
+    margin-bottom: 15px; /* Space between fields */
+    border: 1px solid #ccc; /* Subtle border */
+    border-radius: 4px; /* Slightly rounded corners */
+    font-size: 1rem; /* Readable text size */
+    box-sizing: border-box; /* Includes padding in width */
+}
+
+/* Styling for Submit Button */
+.submit-btn {
+    width: 150px; /* Full width minus padding */
+    padding: 12px 20px; /* Comfortable padding */
+    margin-top: 10px; /* Space above the button */
+    border: none; /* No border */
+    border-radius: 4px; /* Slightly rounded corners */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    font-size: 1rem; /* Matching text size */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-sizing: border-box; /* Includes padding in width */
+}
+
+.submit-btn:hover {
+    background-color: #388E3C; /* Darker green on hover */
+}
+
 /* Audio Capture Buttons */
 .audio-capture-container {
     margin-top: 20px;
@@ -132,10 +166,22 @@ nav a:hover, nav form button:hover {
     cursor: pointer;
     font-size: 16px;
     margin-right: 10px;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
 .audio-capture-container button:hover {
-    background-color: #388E3C;
+    background-color: #388E3C; /* Slightly darker green on hover */
+}
+
+.audio-capture-container button:disabled {
+    background-color: #cccccc; /* Grayed out for disabled state */
+    cursor: not-allowed; /* Cursor indicates button is not clickable */
+    color: #666666; /* Dimmed text color */
+}
+
+.recording-status {
+    color: #007BFF; /* Sets the text color to violet */
+    font-weight: bold; /* Makes the text bold */
 }
 
 /* File Input and Upload Button */
@@ -186,4 +232,43 @@ nav a:hover, nav form button:hover {
 
 .signout-btn:hover {
     background-color: #c72e50; /* Darker shade for hover effect */
+}
+
+/* Upload Form Styling */
+#upload-form {
+    border: 2px dashed #ccc; /* Dashed border for the upload area */
+    padding: 20px; /* Padding inside the upload area */
+    margin: 20px 0; /* Margin for spacing outside the upload area */
+    text-align: center; /* Center the contents */
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center; /* Center vertically in the flex container */
+    align-items: center; /* Center horizontally in the flex container */
+}
+
+#upload-form input[type="file"] {
+    margin-bottom: 10px; /* Space between the file input and the button */
+    width: 80%; /* Width of the file input */
+}
+
+/* Style for the custom file input label */
+.file-input-label {
+    display: inline-block; /* Allows width and padding to be set */
+    padding: 10px 20px; /* Same padding as the submit button for consistency */
+    margin-top: 10px; /* Space above the label */
+    border: 1px solid #8a8484; /* Subtle border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #f8f8f8; /* Light grey background */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.file-input-label:hover {
+    background-color: #b8b0b0;
+}
+
+/* Style for the span that shows the chosen file name */
+#file-chosen {
+    display: inline-block; /* Allows width and margin to be set */
+    margin-left: 10px; /* Space between the label and the span */
+    font-size: 0.9rem; /* Font size similar to input placeholders */
 }

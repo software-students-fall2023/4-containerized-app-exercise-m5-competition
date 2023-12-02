@@ -3,18 +3,21 @@
 {% block container %}
 <div class="upload-container">
     <h1>Audio Transcription Service</h1>
-    <p>Record Your Own Audio</p>
+    <h3>Record Your Own Audio</h3>
 
     <div class="audio-capture-container">
         <button id="start-recording">Start Recording</button>
         <button id="stop-recording" disabled>Stop Recording</button>
     </div>
 
-    <p>Upload an Audio File</p>
+    <h3>Upload an Audio File</h3>
 
     <div id="response-message"></div>
     <form id="upload-form" method="POST" action="/api/upload_audio" enctype="multipart/form-data">
-        <input type="file" name="audio" id="audio-file" accept="audio/*"/>
+        <label for="audio-file" class="file-input-label">Choose File</label>
+        <input type="file" name="audio" id="audio-file" accept="audio/*" style="display:none;"/>
+        <span id="file-chosen">No file chosen</span>
+        <br>
         <button type="submit" class="submit-btn">Upload</button>
     </form>
 
