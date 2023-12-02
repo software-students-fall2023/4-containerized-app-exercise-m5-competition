@@ -132,12 +132,12 @@ pipenv run coverage html
     ```shell
     Name                   Stmts   Miss  Cover
     ------------------------------------------
-    app.py                    54      9    83%
+    app.py                    54      8    85%
     ml_client.py              18      0   100%
     tests\__init__.py          0      0   100%
     tests\test_ml_app.py      50      0   100%
     ------------------------------------------
-    TOTAL                    122      9    93%
+    TOTAL                    122      8    93%
     ```
 
 - Web-App Coverage:
