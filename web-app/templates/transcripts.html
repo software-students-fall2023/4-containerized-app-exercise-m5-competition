@@ -6,7 +6,11 @@
   {% for transcript in transcripts %}
     <div class="transcript">
       <p><span style="font-weight: bold;">Transcript:</span> {{ transcript.transcript }}</p>
+      {% if transcript.sentiment == -2.0 %}
+      <p><span style="font-weight: bold;">Sentiment Polarity:</span> N/A</p>
+      {% else %}
       <p><span style="font-weight: bold;">Sentiment Polarity:</span> {{ transcript.sentiment }}</p>
+      {% endif %}
 
       {% if transcript.sentiment > 0.5 %}
       <p>Sentiment Interpretation: Strongly Positive</p>
