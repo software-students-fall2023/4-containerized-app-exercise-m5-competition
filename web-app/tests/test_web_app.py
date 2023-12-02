@@ -135,10 +135,16 @@ def test_transcripts_view(client):
 def test_upload_audio(client):
     """Test the audio upload functionality."""
 
+    mock_response_data = {
+        "transcript": "test transcript",
+        "sentiment": 0.5,
+        "filename": "testfile.wav",
+    }
+
     with patch(
         "requests.post",
-        return_value=MockResponse({"transcript": "test transcript"}, 200),
-    ):
+        return_value=MockResponse(mock_response_data, 200),
+    ) as mock_post:
         audio_file_path = os.path.join("tests/test_audios", "kids_are_talking.wav")
 
         with open(audio_file_path, "rb") as audio:
@@ -148,6 +154,11 @@ def test_upload_audio(client):
                 content_type="multipart/form-data",
             )
         assert response.status_code == 200
+        assert mock_post.called
+        data = response.get_data(as_text=True)
+        assert "test transcript" in data
+        assert "0.5" in data
+        assert "testfile.wav" in data
 
 
 def test_js_upload_audio(client):
