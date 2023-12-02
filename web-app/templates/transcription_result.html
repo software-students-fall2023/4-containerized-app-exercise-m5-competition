@@ -25,7 +25,11 @@
             {% if result.sentiment is not none %}
                 <div class="sentiment-analysis">
                     <h3>Sentiment Polarity:</h3>
-                    <p>{{ result.sentiment }}</p>
+                    {% if result.sentiment == -2 %}
+                        <p>N/A</p>
+                    {% else %}
+                        <p>{{ result.sentiment }}</p>
+                    {% endif %}
                     {% if result.sentiment > 0.5 %}
                     <p class="sentiment-interpretation">Sentiment Interpretation: Strongly Positive</p>
                     {% elif 0 < result.sentiment <= 0.5 %}
