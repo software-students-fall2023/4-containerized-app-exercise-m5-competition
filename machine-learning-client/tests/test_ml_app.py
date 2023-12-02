@@ -40,6 +40,22 @@ def test_upload_audio_with_file(client):
         assert response.status_code == 200
 
 
+def test_upload_audio_with_file_non_trancriptable(client):
+    """
+    Test the /upload route with an audio file that has no english words.
+    """
+    # Path to the audio file
+    audio_file_path = os.path.join("tests/test_audios", "noword.wav")
+
+    # Open the file in binary mode
+    with open(audio_file_path, "rb") as audio_file:
+        data = {"audio": (audio_file, "noword.wav")}
+        response = client.post("/upload", data=data, content_type="multipart/form-data")
+        assert response.status_code == 200
+        json_data = response.get_json()
+        assert json_data.get("transcript") == "N/A"
+
+
 def test_upload_audio_correctness_short_file(client):
     """
     Test the /upload route with a short audio file.
