@@ -1,9 +1,9 @@
 """Web-app test file."""
 
 import os
-import pytest
 from contextlib import contextmanager
 from unittest.mock import patch
+import pytest
 import json
 from flask import template_rendered
 
