@@ -68,7 +68,7 @@ def upload_audio():
         document = {
             "user_id": user_id,
             "transcript": transcript,
-            "sentiment": sentiment.polarity,
+            "sentiment": sentiment,
             "filename": filename,
         }
         collection.insert_one(document)

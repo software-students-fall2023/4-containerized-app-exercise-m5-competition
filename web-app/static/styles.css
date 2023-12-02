@@ -24,7 +24,6 @@ h1, h2 {
 }
 
 .transcript {
-    border-bottom: 1px solid #eee;
     padding: 20px;
     margin-bottom: 20px;
 }
@@ -40,6 +39,7 @@ h1, h2 {
 
 /* Audio Player Styling */
 .audio-player {
+    border-bottom: 1px solid #eee;
     text-align: center;
     margin-top: 20px;
 }
@@ -187,4 +187,3 @@ nav a:hover, nav form button:hover {
 .signout-btn:hover {
     background-color: #c72e50; /* Darker shade for hover effect */
 }
-
