@@ -1,4 +1,6 @@
-"""simple audio recognition and analysis client"""
+"""
+simple audio recognition and analysis client
+"""
 
 import speech_recognition as sr
 from textblob import TextBlob
@@ -8,7 +10,9 @@ SentimentResult = namedtuple("SentimentResult", ["polarity", "subjectivity"])
 
 
 def transcribe_audio(file_path):
-    """Transcribe the given audio file"""
+    """
+    Transcribe the given audio file
+    """
     r = sr.Recognizer()
     with sr.AudioFile(file_path) as source:
         audio_data = r.record(source)
@@ -21,8 +25,11 @@ def transcribe_audio(file_path):
 
 
 def analyze_sentiment(text):
-    """Sentiment analysis"""
+    """
+    Sentiment analysis
+    """
     if text == "N/A":
+        # Handle the case where the recognizer does not understand the audio
         return SentimentResult(polarity=-2.0, subjectivity=None)
     analysis = TextBlob(text)
     return analysis.sentiment

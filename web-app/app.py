@@ -1,9 +1,10 @@
-"""web-page backend"""
+"""
+web-page backend
+"""
 
 from functools import wraps
 import os
 import uuid
-import json
 import requests
 import pymongo
 import mongomock
@@ -35,7 +36,9 @@ app.secret_key = b"\xcc^\x91\xea\x17-\xd0W\x03\xa7\xf8J0\xac8\xc5"
 
 # Utilities
 def login_required(f):
-    """login required decorators"""
+    """
+    login required decorators
+    """
 
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -47,7 +50,9 @@ def login_required(f):
 
 
 def start_session(user):
-    """Create session containing user info"""
+    """
+    Create session containing user info
+    """
     del user["password"]
     session["logged_in"] = True
     session["user"] = user
@@ -57,48 +62,50 @@ def start_session(user):
 # Views
 @app.route("/")
 def homescreen_view():
-    """upload audio"""
+    """
+    upload audio
+    """
     return render_template("index.html")
 
 
 @app.route("/transcripts")
 @login_required
 def transcripts_view():
-    """View transcripts generated before by the user"""
-    user_transcripts = db.history.find({"user_id": session["user"]["_id"]})
+    """
+    View transcripts generated before by the user
+    """
+    user_transcripts = db.history.find(
+        {"user_id": session["user"]["_id"]}
+    )  # Use this to find the user's record in the db
     return render_template("transcripts.html", transcripts=user_transcripts)
 
 
 @app.route("/login")
 def login_view():
-    """Display log in page"""
+    """
+    Display log in page
+    """
     return render_template("logIn.html")
 
 
 @app.route("/signup")
 def signup_view():
-    """Display sign up page"""
+    """
+    Display sign up page
+    """
     return render_template("signUp.html")
 
 
-@app.route("/transcription_result")
-def transcription_result():
-    """Display transcript result page with the transcription results"""
-    result_json = request.args.get("result", "{}")
-    result = json.loads(result_json)
-    return render_template("transcription_result.html", result=result)
-
-
 # Form handlers
-
-
 @app.route("/api/js_upload_audio", methods=["POST"])
 def js_upload_audio():
-    """Endpoint specifically for JavaScript to upload audio and get JSON response"""
+    """
+    Endpoint specifically for JavaScript to upload audio and get JSON response
+    """
     audio_file = request.files["audio"]
     if not audio_file:
         return jsonify({"error": "No audio file provided"}), 400
-
+    # Pass user id to the ml client if the user is logged in
     user_id = session["user"]["_id"] if "logged_in" in session else None
     data = {"user_id": user_id} if user_id else {}
 
@@ -110,7 +117,7 @@ def js_upload_audio():
     )
 
     if response.status_code == 200:
-        return jsonify(response.json()), 200
+        return jsonify(response.json()), 200  # For javascript display
     return (
         jsonify({"error": "Error processing audio", "details": response.text}),
         response.status_code,
@@ -119,8 +126,11 @@ def js_upload_audio():
 
 @app.route("/api/upload_audio", methods=["POST"])
 def upload_audio():
-    """call the ml client to do ML work"""
+    """
+    Endpoint specifically for audio file upload and get JSON response
+    """
     audio_file = request.files["audio"]
+    # Pass user id to the ml client if the user is logged in
     user_id = session["user"]["_id"] if "logged_in" in session else None
     data = {"user_id": user_id} if user_id else {}
 
@@ -133,15 +143,18 @@ def upload_audio():
 
     if response.status_code == 200:
         result = response.json()
-        return render_template("transcription_result.html", result=result)
-    flash("Failed to process audio. Please try again.", "error")
-    return redirect(url_for("homescreen_view"))
+        return jsonify(result)  # For javascript display
+    return (
+        jsonify({"error": "Failed to process audio. Please try again."}),
+        response.status_code,
+    )
 
 
 @app.route("/user/signup", methods=["POST"])
 def signup():
-    """sign up"""
-
+    """
+    sign up
+    """
     # Create the user object
     user = {
         "_id": uuid.uuid4().hex,
@@ -153,31 +166,39 @@ def signup():
     user["password"] = pbkdf2_sha256.hash(user["password"])
 
     if db.users.find_one({"username": user["username"]}):
-        # redirect with a message
+        # if user name in use, then flash a message and return to the same page
         flash("Username already in use", "error")
         return redirect(url_for("signup_view"))
 
-    if db.users.insert_one(user):
-        return start_session(user)
+    if db.users.insert_one(
+        user
+    ):  # save the user's account info in the users collection
+        return start_session(user)  # auto login after registration
 
-    flash("Signup failed", "error")
+    flash("Signup failed", "error")  # we won't get here normally
     return redirect(url_for("signup_view"))
 
 
 @app.route("/user/signout", methods=["POST"])
 def signout():
-    """signing out"""
+    """
+    signing out
+    """
     session.clear()
     return redirect("/")
 
 
 @app.route("/user/login", methods=["POST"])
 def login():
-    """login"""
-    user = db.users.find_one({"username": request.form.get("username")})
+    """
+    login
+    """
+    user = db.users.find_one(
+        {"username": request.form.get("username")}
+    )  # find matches in the database
     if user and pbkdf2_sha256.verify(request.form.get("password"), user["password"]):
         return start_session(user)
-
+    # if username and password does not match
     flash("Invalid Credentials", "error")
     return redirect(url_for("login_view"))
 

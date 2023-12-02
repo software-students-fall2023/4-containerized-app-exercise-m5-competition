@@ -19,7 +19,7 @@ def client():
 
 def test_upload_audio_no_file(client):
     """
-    Test the /upload route without an audio file.
+    Test the /upload route without an audio file
     """
     response = client.post("/upload", data={})
     assert response.status_code == 400
@@ -28,7 +28,7 @@ def test_upload_audio_no_file(client):
 
 def test_upload_audio_with_file(client):
     """
-    Test the /upload route with a valid audio file.
+    Test the /upload route with a valid audio file
     """
     # Path to the audio file
     audio_file_path = os.path.join("tests/test_audios", "kids_are_talking.wav")
@@ -42,7 +42,7 @@ def test_upload_audio_with_file(client):
 
 def test_upload_audio_with_file_non_trancriptable(client):
     """
-    Test the /upload route with an audio file that has no english words.
+    Test the /upload route with an audio file that has no english words
     """
     # Path to the audio file
     audio_file_path = os.path.join("tests/test_audios", "noword.wav")
@@ -58,7 +58,7 @@ def test_upload_audio_with_file_non_trancriptable(client):
 
 def test_upload_audio_correctness_short_file(client):
     """
-    Test the /upload route with a short audio file.
+    Test the /upload route with a short audio file
     """
     # Path to the audio file
     audio_file_path = os.path.join("tests/test_audios", "kids_are_talking.wav")
@@ -74,7 +74,7 @@ def test_upload_audio_correctness_short_file(client):
 
 def test_upload_audio_correctness_long_file(client):
     """
-    Test the /upload route with a short audio file.
+    Test the /upload route with a long audio file
     """
     # Path to the audio file
     audio_file_path = os.path.join("tests/test_audios", "harvard.wav")
@@ -94,7 +94,8 @@ def test_upload_audio_correctness_long_file(client):
 
 def test_upload_audio_with_webm_format_file(client):
     """
-    Test the /upload route with a .webm short audio file.
+    Test the /upload route with a .webm short audio file
+    This is to test the format conversion function of the ml backend
     """
     # Path to the audio file
     audio_file_path = os.path.join("tests/test_audios", "kids_are_talking.webm")
