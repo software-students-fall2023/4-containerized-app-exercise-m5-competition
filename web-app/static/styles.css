@@ -1,149 +1,114 @@
+/* Enhanced Base Styles */
 body {
-	line-height: 1;
-}
-
-ol, ul {
-	list-style: none;
-}
-
-/* Set base font and background */
-body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
     background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
+}
+
+h1, h2 {
+    color: #444;
+    text-align: center;
+}
+
+/* Transcripts Container Styles */
+.transcripts-container {
+    max-width: 800px;
+    margin: 20px auto;
     padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Link Styles */
-a {
-    color: #007bff;
-    text-decoration: none;
+.transcript {
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
-a:hover {
-    text-decoration: underline;
+.transcript:last-child {
+    border-bottom: none;
 }
 
-/* Navigation Styles */
-.navbar {
-    background-color: #007bff;
-    color: #ffffff;
+.transcript p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+/* Audio Player Styling */
+.audio-player {
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    margin-top: 20px;
+}
+
+audio {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+}
+
+/* Attitude Analysis Styling */
+.transcript p:nth-child(3) {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+/* Hover Effects */
+a:hover, input[type="submit"]:hover, button.submit-btn:hover, .back-btn:hover {
+    opacity: 0.9;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .container, .upload-container, .response-container, .transcripts-container {
+        width: 90%;
+        margin: 20px auto;
+    }
+
+    audio {
+        width: 100%;
+    }
+}
+
+/* Enhanced Navigation Styles */
+nav {
+    background-color: #007BFF;
+    color: white;
     padding: 10px 20px;
+    border-radius: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 30px;
 }
 
-.nav-logo a {
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 24px;
-    text-transform: uppercase;
-}
-
-.nav-links a, .user-welcome, .btn-signout {
-    color: #ffffff;
-    padding: 8px 12px;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.nav-links a:hover, .btn-signout:hover {
-    background-color: #0056b3;
-    color: #ffffff;
+nav a, nav form button {
+    color: white;
+    margin-left: 20px;
     text-decoration: none;
-}
-
-.user-welcome {
     font-weight: bold;
 }
 
-.signout-form {
-    display: inline-block;
+nav a:hover, nav form button:hover {
+    color: #0056b3;
 }
 
-.btn-signout {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-/* Main container */
-.main-container {
-    background-color: #ffffff;
+/* Main Container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
-    margin-top: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Typography */
-h1 {
-    color: #333;
-    margin-bottom: 1em;
-}
-
-/* Form and button styles */
-form {
-    margin-top: 20px;
-}
-
-input[type="file"] {
-    width: 100%;
-    margin-bottom: 1em;
-}
-
-.submit-btn {
-    background-color: #28a745;
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.submit-btn:hover {
-    background-color: #218838;
-}
-
-/* Error message styles */
-.error {
-    color: #dc3545;
-    background-color: #f8d7da;
-    padding: 10px;
-    margin-top: 20px;
-    border-radius: 4px;
-}
-
-/* Audio capture styles */
-.audio-capture-container button {
-    background-color: #007bff;
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 10px;
-}
-
-.audio-capture-container button:disabled {
-    background-color: #cccccc;
-}
-
-.audio-capture-container button:hover:not(:disabled) {
-    background-color: #0056b3;
 }
 
 /* Upload Container */
 .upload-container {
     background-color: #fff;
-    padding: 30px;
+    padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     text-align: center;
 }
 
@@ -153,159 +118,72 @@ input[type="file"] {
 }
 
 /* Audio Capture Buttons */
+.audio-capture-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .audio-capture-container button {
-    background-color: #007bff;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 4px;
     padding: 10px 20px;
-    margin: 10px 5px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    margin-right: 10px;
 }
 
-.audio-capture-container button:disabled {
-    background-color: #cccccc;
-}
-
-.audio-capture-container button:not(:disabled):hover {
-    background-color: #0056b3;
+.audio-capture-container button:hover {
+    background-color: #388E3C;
 }
 
 /* File Input and Upload Button */
-input[type='file'] {
-    border: 1px solid #ddd;
-    padding: 8px;
-    margin-bottom: 20px;
-    width: calc(100% - 16px); /* Adjust for padding */
-}
-
-/* Submit Button */
-.submit-btn {
-    background-color: #28a745;
-    color: #fff;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.submit-btn:hover {
-    background-color: #218838;
-}
-
-/* Error Message */
-.error {
-    color: #dc3545;
-    background-color: #f8d7da;
-    padding: 10px;
+#upload-form {
     margin-top: 20px;
-    border-radius: 4px;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
 }
 
-/* Form Elements */
-form h2 {
-    margin-bottom: 5px;
-    color: #333;
-}
-
-input[type='text'],
-input[type='password'] {
-    width: calc(100% - 22px); /* Adjust for padding and border */
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-input[type='text']:focus,
-input[type='password']:focus {
-    outline: none;
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-/* Adjusting margins for form elements */
-form div {
+#upload-form input[type="file"] {
     margin-bottom: 20px;
 }
 
-/* Table Styles for Transcript History */
-.transcripts-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px auto; /* Center the table */
-}
-
-.transcripts-table th, .transcripts-table td {
-    border: 1px solid #ddd;
+/* Error Message Styling */
+.error {
+    color: #ff3860;
+    background-color: #ffebee;
     padding: 10px;
-    text-align: left;
+    border-radius: 4px;
+    margin-top: 20px;
 }
 
-.transcripts-table th {
-    background-color: #f4f4f4;
-    color: #333;
-}
-
-.transcripts-table td {
-    background-color: #fff;
-}
-
-.transcript-row:nth-child(odd) {
-    background-color: #f9f9f9;
-}
-
-.transcripts-table th:nth-child(3), .transcripts-table td:nth-child(3) {
-    min-width: 300px; /* Minimum width for the Audio column */
-}
-
-.transcripts-table audio {
-    width: 100%; /* Make audio controls stretch to the full width of the cell */
-}
-
-/* Additional alignment for audio table on smaller screens */
-@media (max-width: 768px) {
-    .transcripts-table, .transcripts-table thead, .transcripts-table tbody, .transcripts-table th, .transcripts-table td, .transcripts-table tr {
-        display: block;
+/* Responsive Design for Smaller Screens */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 15px;
     }
 
-    .transcripts-table thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .transcripts-table tr {
-        margin-bottom: 10px;
+    nav a, nav form {
+        margin-top: 10px;
     }
+}
+.signout-btn {
+    background-color: #ff3860; /* A red color for sign out */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    margin-left: 10px; /* Add some margin if needed */
+}
 
-    .transcripts-table td {
-        /* Make table cells look like rows on small screens */
-        border: none;
-        position: relative;
-        padding-left: 50%;
-        text-align: right;
-    }
-
-    .transcripts-table td:before {
-        /* Add a pseudo-element for the label */
-        position: absolute;
-        top: 12px;
-        left: 10px;
-        width: 45%;
-        padding-right: 10px;
-        white-space: nowrap;
-        text-align: left;
-        font-weight: bold;
-    }
-
-    /* Label the data */
-    .transcripts-table td:nth-of-type(1):before { content: "Transcript"; }
-    .transcripts-table td:nth-of-type(2):before { content: "Sentiment"; }
-    .transcripts-table td:nth-of-type(3):before { content: "Audio"; }
+.signout-btn:hover {
+    background-color: #c72e50; /* Darker shade for hover effect */
 }

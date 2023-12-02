@@ -3,28 +3,29 @@
 {% block container %}
 <div class="transcripts-container">
   <h1>My Transcripts</h1>
-  <table class="transcripts-table">
-    <thead>
-      <tr>
-        <th>Transcript</th>
-        <th>Sentiment</th>
-        <th>Audio</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for transcript in transcripts %}
-      <tr class="transcript-row">
-        <td>{{ transcript.transcript }}</td>
-        <td>{{ transcript.sentiment }}</td>
-        <td>
-          <audio controls>
-            <source src="http://127.0.0.1:7001/audio/{{ transcript.filename }}" type="audio/wav">
-            Your browser does not support the audio element.
-          </audio>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  {% for transcript in transcripts %}
+    <div class="transcript">
+      <p>Transcript: {{ transcript.transcript }}</p>
+      <p>Sentiment: {{ transcript.sentiment }}</p>
+
+      {% if transcript.sentiment > 0.5 %}
+      <p>our analysis: Strongly Positive</p>
+      {% elif 0 < transcript.sentiment <= 0.5 %}
+      <p>our analysis: Slightly Positive</p>
+      {% elif -0.5 < transcript.sentiment < 0 %}
+      <p>our analysis: Slightly Negative</p>
+      {% elif transcript.sentiment <= -0.5 %}
+      <p>our analysis: Strongly Negative</p>
+      {% else %}
+      <p>our analysis: Neutral</p>
+      {% endif %}
+    </div>
+    <div class="audio-player">
+      <audio controls>
+          <source src="http://127.0.0.1:7001/audio/{{ transcript.filename }}" type="audio/wav">
+          Your browser does not support the audio element.
+      </audio>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}
