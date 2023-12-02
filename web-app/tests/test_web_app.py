@@ -4,7 +4,6 @@ import os
 from contextlib import contextmanager
 from unittest.mock import patch
 import pytest
-import json
 from flask import template_rendered
 
 # Set TESTING environment variable for the test session
@@ -155,10 +154,11 @@ def test_upload_audio(client):
             )
         assert response.status_code == 200
         assert mock_post.called
-        data = response.get_data(as_text=True)
-        assert "test transcript" in data
-        assert "0.5" in data
-        assert "testfile.wav" in data
+
+        json_data = response.get_json()
+        assert json_data["transcript"] == "test transcript"
+        assert json_data["sentiment"] == 0.5
+        assert json_data["filename"] == "testfile.wav"
 
 
 def test_js_upload_audio(client):
@@ -189,25 +189,3 @@ def test_js_upload_audio(client):
         assert json_data["transcript"] == "test transcript"
         assert json_data["sentiment"] == 0.5
         assert json_data["filename"] == "testfile.wav"
-
-
-def test_transcription_result_route(client):
-    """Test the transcription result route."""
-
-    sample_result = {
-        "transcript": "This is a test transcript.",
-        "sentiment": 0.75,
-        "filename": "test_audio.wav",
-    }
-
-    response = client.get(
-        "/transcription_result", query_string={"result": json.dumps(sample_result)}
-    )
-
-    assert response.status_code == 200
-
-    data = response.get_data(as_text=True)
-    assert "Transcription Result" in data
-    assert "This is a test transcript." in data
-    assert "0.75" in data
-    assert "test_audio.wav" in data

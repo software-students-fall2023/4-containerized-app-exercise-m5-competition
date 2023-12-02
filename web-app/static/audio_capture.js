@@ -1,6 +1,33 @@
 let mediaRecorder;
 let audioChunks = [];
 
+document.getElementById('upload-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the normal submission of the form
+
+    // Display a processing message
+    document.getElementById("response-message").innerHTML = "<p class='recording-status'>Processing audio file...</p>";
+
+    let formData = new FormData(this); // 'this' refers to the form
+
+    fetch('/api/upload_audio', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        updateResultPage(data); // Use the same function to update the page
+    })
+    .catch(error => {
+        console.error('Error uploading file:', error);
+        document.getElementById("response-message").innerHTML = "<p class='error-status'>Error uploading file, please try again!</p>";
+    });
+});
+
 document.getElementById("start-recording").addEventListener("click", async () => {
     console.log("Start recording button clicked");
     document.getElementById("start-recording").disabled = true;
@@ -96,7 +123,7 @@ function updateResultPage(data) {
         htmlContent += `<p class="sentiment-interpretation">${sentimentInterpretation}</p>`;
     }
 
-    if (data.filename) {
+    if (data.filename) { // If the user is logged in
         htmlContent += `
             <div>
                 <h3>Listen to the Audio:</h3>

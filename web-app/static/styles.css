@@ -124,31 +124,31 @@ nav a:hover, nav form button:hover {
 /* Styling for Input Fields */
 .upload-container input[type="text"],
 .upload-container input[type="password"] {
-    width: 380px; /* Full width minus padding */
-    padding: 12px 20px; /* Comfortable padding */
-    margin-bottom: 15px; /* Space between fields */
-    border: 1px solid #ccc; /* Subtle border */
-    border-radius: 4px; /* Slightly rounded corners */
-    font-size: 1rem; /* Readable text size */
-    box-sizing: border-box; /* Includes padding in width */
+    width: 380px;
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
 }
 
 /* Styling for Submit Button */
 .submit-btn {
-    width: 150px; /* Full width minus padding */
-    padding: 12px 20px; /* Comfortable padding */
-    margin-top: 10px; /* Space above the button */
-    border: none; /* No border */
-    border-radius: 4px; /* Slightly rounded corners */
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
-    font-size: 1rem; /* Matching text size */
-    cursor: pointer; /* Pointer cursor on hover */
-    box-sizing: border-box; /* Includes padding in width */
+    width: 150px;
+    padding: 12px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    box-sizing: border-box;
 }
 
 .submit-btn:hover {
-    background-color: #388E3C; /* Darker green on hover */
+    background-color: #388E3C;
 }
 
 /* Audio Capture Buttons */
@@ -166,22 +166,26 @@ nav a:hover, nav form button:hover {
     cursor: pointer;
     font-size: 16px;
     margin-right: 10px;
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
 .audio-capture-container button:hover {
-    background-color: #388E3C; /* Slightly darker green on hover */
+    background-color: #388E3C;
 }
 
 .audio-capture-container button:disabled {
-    background-color: #cccccc; /* Grayed out for disabled state */
-    cursor: not-allowed; /* Cursor indicates button is not clickable */
-    color: #666666; /* Dimmed text color */
+    background-color: #cccccc;
+    cursor: not-allowed;
+    color: #666666;
 }
 
 .recording-status {
-    color: #007BFF; /* Sets the text color to violet */
-    font-weight: bold; /* Makes the text bold */
+    color: #007BFF;
+    font-weight: bold;
+}
+
+.error-status {
+    color: #ff003c;
+    font-weight: bold;
 }
 
 /* File Input and Upload Button */
@@ -193,6 +197,28 @@ nav a:hover, nav form button:hover {
     margin-bottom: 20px;
 }
 
+/* Style for the custom file input label */
+.file-input-label {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: 1px solid #8a8484;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+.file-input-label:hover {
+    background-color: #b8b0b0;
+}
+
+/* Style for the span that shows the chosen file name */
+#file-chosen {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 0.9rem;
+}
+
 /* Error Message Styling */
 .error {
     color: #ff3860;
@@ -202,24 +228,25 @@ nav a:hover, nav form button:hover {
     margin-top: 20px;
 }
 
-/* Responsive Design for Smaller Screens */
-@media screen and (max-width: 768px) {
-    .container {
-        width: 90%;
-        padding: 15px;
-    }
-
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    nav a, nav form {
-        margin-top: 10px;
-    }
+/* Upload Form Styling */
+#upload-form {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+#upload-form input[type="file"] {
+    margin-bottom: 10px;
+    width: 80%;
+}
+
 .signout-btn {
-    background-color: #ff3860; /* A red color for sign out */
+    background-color: #ff3860;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -227,48 +254,9 @@ nav a:hover, nav form button:hover {
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: 16px;
-    margin-left: 10px; /* Add some margin if needed */
+    margin-left: 10px;
 }
 
 .signout-btn:hover {
-    background-color: #c72e50; /* Darker shade for hover effect */
-}
-
-/* Upload Form Styling */
-#upload-form {
-    border: 2px dashed #ccc; /* Dashed border for the upload area */
-    padding: 20px; /* Padding inside the upload area */
-    margin: 20px 0; /* Margin for spacing outside the upload area */
-    text-align: center; /* Center the contents */
-    display: flex; /* Use flexbox for alignment */
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: center; /* Center vertically in the flex container */
-    align-items: center; /* Center horizontally in the flex container */
-}
-
-#upload-form input[type="file"] {
-    margin-bottom: 10px; /* Space between the file input and the button */
-    width: 80%; /* Width of the file input */
-}
-
-/* Style for the custom file input label */
-.file-input-label {
-    display: inline-block; /* Allows width and padding to be set */
-    padding: 10px 20px; /* Same padding as the submit button for consistency */
-    margin-top: 10px; /* Space above the label */
-    border: 1px solid #8a8484; /* Subtle border */
-    border-radius: 4px; /* Rounded corners */
-    background-color: #f8f8f8; /* Light grey background */
-    cursor: pointer; /* Pointer cursor on hover */
-}
-
-.file-input-label:hover {
-    background-color: #b8b0b0;
-}
-
-/* Style for the span that shows the chosen file name */
-#file-chosen {
-    display: inline-block; /* Allows width and margin to be set */
-    margin-left: 10px; /* Space between the label and the span */
-    font-size: 0.9rem; /* Font size similar to input placeholders */
+    background-color: #c72e50;
 }
