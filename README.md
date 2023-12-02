@@ -21,34 +21,41 @@ Our Audio Transcription Service allows you to either record your own audio or up
 
 ### Run the Application
 - Clone the repository:
+
     ```shell
     git clone https://github.com/software-students-fall2023/4-containerized-app-exercise-m5-competition
     ```
 - Navigate to the project root directory:
+
     ```shell
     cd 4-containerized-app-exercise-m5-competition
     ```
 - Start the `Docker` application.
 - Use `docker-compose` to build the images:
+
     ```shell
     docker-compose build
     ```
 - Start the application using `docker-compose`:
+
     ```shell
     docker-compose up
     ```
 - Verify that the project is up and running by checking for the following messages in your terminal:
+
     ```shell
     my_web_app    |  * Running on all addresses (0.0.0.0)
     my_web_app    |  * Running on http://127.0.0.1:5000
     my_web_app    |  * Running on http://172.22.0.4:5000
     ```
+
     ```shell
     my_ml_client  |  * Running on all addresses (0.0.0.0)
     my_ml_client  |  * Running on http://127.0.0.1:5000
     my_ml_client  |  * Running on http://172.22.0.3:5000
     ```
 - Access the application in your browser at:
+
     ```shell
     http://localhost:6001
     ```
@@ -64,6 +71,7 @@ If you choose to register and log in, you gain additional features like viewing 
 
 ### Stopping the Application
 To stop the application and remove the containers, execute the following command in your terminal:
+
 ```shell
 docker-compose down
 ```
@@ -76,29 +84,34 @@ Our project uses `pylint` for linting, `black` for formatting, `pytest` (for the
 - The application also depends on [ffmpeg](https://ffmpeg.org/download.html). While it is already included in the Dockerfile, and thus not required for Docker-based runs, you will need to install it locally for local testing. To do so, follow the installation instructions on the `ffmpeg` website and ensure that `ffmpeg` is added to your system's `PATH` environment variable.
 
 ### Cloning the Project
+
 ```shell
 git clone https://github.com/software-students-fall2023/4-containerized-app-exercise-m5-competition
 ```
 
 ### Navigating to the Project Root Directory
+
 ```shell
 cd 4-containerized-app-exercise-m5-competition
 ```
 
 ### Installing pipenv
 If `pipenv` is not installed on your machine, install it using:
+
 ```shell
 pip install pipenv
 ```
 
 ### Installing Dependencies
 Install all the necessary dependencies by executing:
+
 ```shell
 pipenv install
 ```
 
 ### Activating the Virtual Environment
 Activate the virtual environment using:
+
 ```shell
 pipenv shell
 ```
@@ -107,28 +120,33 @@ pipenv shell
 Navigate to either the `web-app` or `machine-learning-client` subdirectory depending on which component you want to test.
 
 For the web-app:
+
 ```shell
 cd ./web-app
 ```
 
 For the machine-learning-client:
+
 ```shell
 cd ./machine-learning-client
 ```
 
 Run `pytest` and view the coverage report:
+
 ```shell
 pipenv run coverage run -m pytest
 pipenv run coverage report
 ```
 
 To view a detailed HTML report showing lines covered and missed:
+
 ```shell
 pipenv run coverage html
 ```
 
 ### Test Coverage Report (as of 12/02/2023)
 - Machine-Learning-Client Coverage:
+
     ```shell
     Name                   Stmts   Miss  Cover
     ------------------------------------------
@@ -141,6 +159,7 @@ pipenv run coverage html
     ```
 
 - Web-App Coverage:
+
     ```shell
     Name                    Stmts   Miss  Cover
     -------------------------------------------
