@@ -25,6 +25,7 @@ mongomock = "*"
 requests = "*"
 requests-mock = "*"
 pytest-mock = "*"
+pytest-flask = "*"
 
 [dev-packages]
 pylint = "*"

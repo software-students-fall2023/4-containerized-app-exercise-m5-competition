@@ -46,13 +46,11 @@ Our Audio Transcription Service allows you to either record your own audio or up
     ```shell
     my_web_app    |  * Running on all addresses (0.0.0.0)
     my_web_app    |  * Running on http://127.0.0.1:5000
-    my_web_app    |  * Running on http://172.22.0.4:5000
     ```
 
     ```shell
     my_ml_client  |  * Running on all addresses (0.0.0.0)
     my_ml_client  |  * Running on http://127.0.0.1:5000
-    my_ml_client  |  * Running on http://172.22.0.3:5000
     ```
 - Access the application in your browser at:
 
@@ -135,6 +133,9 @@ Run `pytest` and view the coverage report:
 
 ```shell
 pipenv run coverage run -m pytest
+```
+
+```shell
 pipenv run coverage report
 ```
 
