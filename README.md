@@ -120,13 +120,13 @@ Navigate to either the `web-app` or `machine-learning-client` subdirectory depen
 For the web-app:
 
 ```shell
-cd ./web-app
+cd web-app
 ```
 
 For the machine-learning-client:
 
 ```shell
-cd ./machine-learning-client
+cd machine-learning-client
 ```
 
 Run `pytest` and view the coverage report:

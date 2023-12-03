@@ -26,6 +26,7 @@ requests = "*"
 requests-mock = "*"
 pytest-mock = "*"
 pytest-flask = "*"
+setuptools = "*"
 
 [dev-packages]
 pylint = "*"
