@@ -145,7 +145,7 @@ To view a detailed HTML report showing lines covered and missed:
 pipenv run coverage html
 ```
 
-### Test Coverage Report (as of 12/02/2023)
+### Test Coverage Report (as of 12/02/2023, reported by Github Action)
 - Machine-Learning-Client Coverage:
 
     ```shell
