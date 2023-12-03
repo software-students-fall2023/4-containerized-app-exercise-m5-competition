@@ -128,7 +128,7 @@ function updateResultPage(data) {
             <div>
                 <h3>Listen to the Audio:</h3>
                 <audio controls>
-                    <source src="http://127.0.0.1:7001/audio/${data.filename}" type="audio/wav">
+                    <source src="${serverUrl}:7001/audio/${data.filename}" type="audio/wav">
                     Your browser does not support the audio element.
                 </audio>
             </div>
