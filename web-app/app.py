@@ -9,6 +9,7 @@ import requests
 import pymongo
 import mongomock
 from dotenv import load_dotenv
+
 load_dotenv()
 from flask import (
     Flask,
@@ -34,6 +35,7 @@ db = client["Isomorphism"]
 
 # Set secret key for sessions
 app.secret_key = b"\xcc^\x91\xea\x17-\xd0W\x03\xa7\xf8J0\xac8\xc5"
+
 
 # Utilities
 def login_required(f):
@@ -66,7 +68,7 @@ def homescreen_view():
     """
     upload audio
     """
-    server_url = os.environ.get('SERVER_URL', 'http://127.0.0.1')
+    server_url = os.environ.get("SERVER_URL", "http://127.0.0.1")
     return render_template("index.html", server_url=server_url)
 
 
@@ -76,11 +78,13 @@ def transcripts_view():
     """
     View transcripts generated before by the user
     """
-    server_url = os.environ.get('SERVER_URL', 'http://127.0.0.1')
+    server_url = os.environ.get("SERVER_URL", "http://127.0.0.1")
     user_transcripts = db.history.find(
         {"user_id": session["user"]["_id"]}
     )  # Use this to find the user's record in the db
-    return render_template("transcripts.html", transcripts=user_transcripts, server_url=server_url)
+    return render_template(
+        "transcripts.html", transcripts=user_transcripts, server_url=server_url
+    )
 
 
 @app.route("/login")
