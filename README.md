@@ -14,12 +14,36 @@ Our Audio Transcription Service allows you to either record your own audio or up
 - [Xuefeng Song](https://github.com/wowwowooo)
 
 ## Usage
-### Prerequisites
+
+### Accessing the Deployed Application
+
+The application is deployed and publicly accessible. You can interact with it directly without installing anything locally.
+
+- **URL**: [http://64.225.26.135:6001](http://64.225.26.135:6001)
+- Just click the link or copy-paste it into your browser's address bar.
+
+#### Special Instructions for Chrome Users
+If you are using Google Chrome and need to use features like microphone access, follow these steps to bypass security restrictions due to the site being hosted on a bare IP address:
+
+1. **Open Chrome Flags**:
+   - Type `chrome://flags/#unsafely-treat-insecure-origin-as-secure` in your Chrome address bar and press `Enter`.
+
+2. **Enable Insecure Origins**:
+   - In the "Insecure origins treated as secure" section, add `http://64.225.26.135:6001`.
+   - Change the dropdown from 'Disabled' to 'Enabled'.
+
+3. **Relaunch Chrome**:
+   - Click the 'Relaunch' button to apply the changes.
+
+Please note that this workaround should be used cautiously as it can introduce security risks. It's recommended only for testing or non-sensitive use. We apologize for any inconvenience and are working to provide a more seamless experience in future updates.
+
+
+### Prerequisites for Local Setup
 - Ensure you have [Python](https://www.python.org/downloads/) 3.9 or higher installed on your system.
 - Make sure you have [Docker](https://docs.docker.com/get-docker/) installed and running on your computer. 
 - Our project includes a feature to record audio from the front-end. For this, ensure your computer has a microphone and that it is accessible via your browser.
 
-### Run the Application
+### Running the Application Locally
 - Clone the repository:
 
     ```shell
@@ -59,7 +83,7 @@ Our Audio Transcription Service allows you to either record your own audio or up
     ```
 
 ### How to Use the Application
-After starting the application and navigating to the home page, you have the option to either register for an account or use the app as a guest. You can upload an existing audio file or record a new one using the app's record button. Once the audio is processed, you'll be able to view the transcript and sentiment analysis. 
+After starting the application (either locally or via the deployed URL) and navigating to the home page, you have the option to either register for an account or use the app as a guest. You can upload an existing audio file or record a new one using the app's record button. Once the audio is processed, you'll be able to view the transcript and sentiment analysis. 
 
 If you choose to register and log in, you gain additional features like viewing your transcription history and listening to the original audio. 
 
@@ -164,11 +188,11 @@ pipenv run coverage html
     ```shell
     Name                    Stmts   Miss  Cover
     -------------------------------------------
-    app.py                     85     10    88%
+    app.py                     89     10    89%
     tests\__init__.py           0      0   100%
     tests\test_web_app.py      86      0   100%
     -------------------------------------------
-    TOTAL                     171     10    94%
+    TOTAL                     175     10    94%
     ```
 
 ## Conclusion

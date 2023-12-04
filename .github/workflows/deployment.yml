@@ -29,5 +29,7 @@ jobs:
           cd 4-containerized-app-exercise-m5-competition &&
           docker-compose down &&
           git pull origin main &&
-          docker-compose up --build -d
+          docker-compose up --build -d &&
+          docker image prune -a -f &&
+          rm -rf ./machine-learning-client/audio_files/*
         "
