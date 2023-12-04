@@ -7,8 +7,9 @@ import os
 import uuid
 import requests
 import pymongo
-import socket
 import mongomock
+from dotenv import load_dotenv
+load_dotenv()
 from flask import (
     Flask,
     request,
@@ -20,14 +21,6 @@ from flask import (
     jsonify,
 )
 from passlib.hash import pbkdf2_sha256
-
-
-hostname = socket.gethostname()
-if hostname == "ecb53a780f41":  # replace with actual server hostname
-    server_url = "http://64.225.26.135"
-else:
-    server_url = "http://127.0.0.1"
-
 
 app = Flask(__name__)
 
@@ -73,6 +66,7 @@ def homescreen_view():
     """
     upload audio
     """
+    server_url = os.environ.get('SERVER_URL', 'http://127.0.0.1')
     return render_template("index.html", server_url=server_url)
 
 
@@ -82,10 +76,11 @@ def transcripts_view():
     """
     View transcripts generated before by the user
     """
+    server_url = os.environ.get('SERVER_URL', 'http://127.0.0.1')
     user_transcripts = db.history.find(
         {"user_id": session["user"]["_id"]}
     )  # Use this to find the user's record in the db
-    return render_template("transcripts.html", transcripts=user_transcripts, server_url=server_url, hostname=hostname)
+    return render_template("transcripts.html", transcripts=user_transcripts, server_url=server_url)
 
 
 @app.route("/login")
