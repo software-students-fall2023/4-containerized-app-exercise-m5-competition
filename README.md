@@ -103,7 +103,18 @@ Our project uses `pylint` for linting, `black` for formatting, `pytest` (for the
 
 ### Prerequisites
 - Ensure you have [Python](https://www.python.org/downloads/) 3.9 or higher installed on your system.
-- The application also depends on [ffmpeg](https://ffmpeg.org/download.html). While it is already included in the Dockerfile, and thus not required for Docker-based runs, you will need to install it locally for local testing. To do so, follow the installation instructions on the `ffmpeg` website and ensure that `ffmpeg` is added to your system's `PATH` environment variable.
+- The application also depends on [ffmpeg](https://ffmpeg.org/download.html). While it is already included in the Dockerfile, and thus not required for Docker-based runs, you will need to install it locally for local testing. To do so, kindly refer to the following steps:
+    - **Windows Machine**: 
+        - Click [here](https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip) to download the release build from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/).
+        - Unzip the file and then add the bin folder `\ffmpeg-6.1-essentials_build\ffmpeg-6.1-essentials_build\bin` to your system's `PATH` environment variable.
+        - Open command line and type `ffmpeg -version`  to verify it is installed correctly.
+    - **macOS Machine**:
+        - Click [here](https://evermeet.cx/ffmpeg/ffmpeg-6.1.zip) to download the static FFmpeg binaries for macOS by [evermeet](https://evermeet.cx/ffmpeg/).
+        - Unzip the downloaded folder and move file `ffmpeg` to `/usr/local/bin`.
+        - Make sure `/usr/local/bin` is already in `PATH`, if not you should add `/usr/local/bin` to `PATH`.
+        - Open command line and type `ffmpeg -version`  to verify it is installed correctly.
+
+    The direct download links may become expired if [gyan.dev](https://www.gyan.dev/ffmpeg/builds/) or [evermeet](https://evermeet.cx/ffmpeg/) publish new releases, in that case just click the links and download the latest build.
 
 ### Cloning the Project
 
