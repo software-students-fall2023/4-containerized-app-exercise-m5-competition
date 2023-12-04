@@ -85,7 +85,7 @@ def transcripts_view():
     user_transcripts = db.history.find(
         {"user_id": session["user"]["_id"]}
     )  # Use this to find the user's record in the db
-    return render_template("transcripts.html", transcripts=user_transcripts, server_url=server_url)
+    return render_template("transcripts.html", transcripts=user_transcripts, server_url=server_url, hostname=hostname)
 
 
 @app.route("/login")
