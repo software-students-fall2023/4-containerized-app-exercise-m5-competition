@@ -1,4 +1,4 @@
-name: Web-App
+name: Web-App CI/CD
 
 on: [push, pull_request]
 

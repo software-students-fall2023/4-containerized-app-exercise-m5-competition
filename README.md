@@ -1,7 +1,7 @@
 # Audio Transcription Service
 
-[![Machine-Learning-Client](https://github.com/software-students-fall2023/4-containerized-app-exercise-m5-competition/actions/workflows/ml_client_test.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-m5-competition/actions/workflows/ml_client_test.yml) 
-[![Web-App](https://github.com/software-students-fall2023/4-containerized-app-exercise-m5-competition/actions/workflows/web_app_test.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-m5-competition/actions/workflows/web_app_test.yml)
+[![Web-App CI/CD](https://github.com/software-students-fall2023/4-containerized-app-exercise-m5-competition/actions/workflows/web_app_test.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-m5-competition/actions/workflows/web_app_test.yml)
+[![Machine-Learning-Client CI](https://github.com/software-students-fall2023/4-containerized-app-exercise-m5-competition/actions/workflows/ml_client_test.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-m5-competition/actions/workflows/ml_client_test.yml) 
 
 ## Introduction
 Our Audio Transcription Service allows you to either record your own audio or upload an existing audio file. We will then provide you with an English transcription and sentiment polarity analysis of the content.
