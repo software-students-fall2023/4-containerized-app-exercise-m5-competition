@@ -1,4 +1,4 @@
-name: Build and Deploy to Digital Ocean with SSH Password
+name: Build and Deploy to Digital Ocean
 
 on:
   push:

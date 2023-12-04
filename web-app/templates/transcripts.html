@@ -25,8 +25,6 @@
       {% endif %}
     </div>
     <div class="audio-player">
-      <p>Server URL: {{ server_url }}:7001</p>
-      <p>Hostname: {{ hostname }}</p>
       <audio controls>
           <source src="{{ server_url }}:7001/audio/{{ transcript.filename }}" type="audio/wav">
           Your browser does not support the audio element.
