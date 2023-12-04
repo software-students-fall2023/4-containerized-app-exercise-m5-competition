@@ -23,7 +23,7 @@ from passlib.hash import pbkdf2_sha256
 
 
 hostname = socket.gethostname()
-if hostname == "ubuntu-Isomorphism1337":  # replace with actual server hostname
+if hostname == "ecb53a780f41":  # replace with actual server hostname
     server_url = "http://64.225.26.135"
 else:
     server_url = "http://127.0.0.1"
