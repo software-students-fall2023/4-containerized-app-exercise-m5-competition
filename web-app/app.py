@@ -8,6 +8,8 @@ import uuid
 import requests
 import pymongo
 import mongomock
+from dotenv import load_dotenv
+load_dotenv()
 from flask import (
     Flask,
     request,
@@ -32,7 +34,6 @@ db = client["Isomorphism"]
 
 # Set secret key for sessions
 app.secret_key = b"\xcc^\x91\xea\x17-\xd0W\x03\xa7\xf8J0\xac8\xc5"
-
 
 # Utilities
 def login_required(f):
