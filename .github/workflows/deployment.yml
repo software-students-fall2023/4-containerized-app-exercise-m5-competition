@@ -1,0 +1,32 @@
+name: Build and Deploy to Digital Ocean
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Deploy to Server
+      env:
+        DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+      run: |
+        # Setup SSH key
+        mkdir -p ~/.ssh
+        echo "$DEPLOY_SSH_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 64.225.26.135 >> ~/.ssh/known_hosts
+
+        # SSH and Deploy
+        ssh -i ~/.ssh/id_rsa root@64.225.26.135 "
+          cd 4-containerized-app-exercise-m5-competition &&
+          git pull origin main &&
+          docker-compose down &&
+          docker-compose up -d
+        "
