@@ -1,0 +1,36 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+speechrecognition = "*"
+textblob = "*"
+pydub = "*"
+pylint = "*"
+tomli = "*"
+typing-extensions = "*"
+pymongo = "*"
+flask = "*"
+dill = "*"
+black = "*"
+python-dotenv = "*"
+passlib = "*"
+pytest = "*"
+sounddevice = "*"
+coverage = "*"
+exceptiongroup = "*"
+flask-cors = "*"
+mongomock = "*"
+requests = "*"
+requests-mock = "*"
+pytest-mock = "*"
+pytest-flask = "*"
+setuptools = "*"
+
+[dev-packages]
+pylint = "*"
+black = "*"
+
+[requires]
+python_version = "3.12"
