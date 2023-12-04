@@ -27,7 +27,7 @@ jobs:
         # SSH and Deploy using sshpass
         sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no root@64.225.26.135 "
           cd 4-containerized-app-exercise-m5-competition &&
-          git pull origin main &&
           docker-compose down &&
-          docker-compose up -d
+          git pull origin main &&
+          docker-compose up --build -d
         "
