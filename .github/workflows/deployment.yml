@@ -20,13 +20,14 @@ jobs:
       env:
         SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
       run: |
-        # Bypass host key checking
+        # Create .ssh directory and bypass host key checking
+        mkdir -p ~/.ssh
         ssh-keyscan -H 64.225.26.135 >> ~/.ssh/known_hosts
         
         # SSH and Deploy using sshpass
         sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no root@64.225.26.135 "
           cd 4-containerized-app-exercise-m5-competition &&
-          docker-compose down &&
           git pull origin main &&
+          docker-compose down &&
           docker-compose up -d
         "
