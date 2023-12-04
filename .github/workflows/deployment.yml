@@ -1,4 +1,4 @@
-name: Build and Deploy to Digital Ocean
+name: Build and Deploy to Digital Ocean with SSH Password
 
 on:
   push:
@@ -13,20 +13,20 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Install sshpass
+      run: sudo apt-get install -y sshpass
+
     - name: Deploy to Server
       env:
-        DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
       run: |
-        # Setup SSH key
-        mkdir -p ~/.ssh
-        echo "$DEPLOY_SSH_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+        # Bypass host key checking
         ssh-keyscan -H 64.225.26.135 >> ~/.ssh/known_hosts
-
-        # SSH and Deploy
-        ssh -i ~/.ssh/id_rsa root@64.225.26.135 "
+        
+        # SSH and Deploy using sshpass
+        sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no root@64.225.26.135 "
           cd 4-containerized-app-exercise-m5-competition &&
-          git pull origin main &&
           docker-compose down &&
+          git pull origin main &&
           docker-compose up -d
         "
